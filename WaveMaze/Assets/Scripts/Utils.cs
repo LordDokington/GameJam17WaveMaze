@@ -12,6 +12,16 @@ public class Utils
 							Mathf.Lerp (v1.y, v2.y, t), 
 							Mathf.Lerp (v1.z, v2.z, t));
 	}
+
+	public static float RandRange(float min, float max)
+	{
+		return min + Random.value * (max - min);
+	}
+
+	public static Vector3 RandRange(Vector3 min, Vector3 max)
+	{
+		return min + Random.value * (max - min);
+	}
 }
 
 }

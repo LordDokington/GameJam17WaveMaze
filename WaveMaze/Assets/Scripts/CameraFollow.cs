@@ -6,15 +6,24 @@ namespace WaveMaze
 
 public class CameraFollow : MonoBehaviour 
 {
-
 	public GameObject target;
 
 	private float interpolationSpeed = 0.1f;
-	
 
 	// Use this for initialization
 	void Start ()
 	{
+		int wallCount = 10;
+		GameObject wallPrefab = Resources.Load ("Prefabs/Wall") as GameObject;
+		
+		for (int i = 0; i < wallCount; ++i) 
+		{
+			float randX = Utils.RandRange (-40, 40);
+			float randY = Utils.RandRange (-40, 40);
+
+			GameObject wall = Instantiate ( wallPrefab, new Vector3 (randX, randY, 0), Quaternion.identity );
+			wall.transform.Rotate (0, 0, Random.value * 360);
+		}
 	}
 	
 	// Update is called once per frame
@@ -22,8 +31,8 @@ public class CameraFollow : MonoBehaviour
 	{
 		Vector3 deltaVec = target.transform.position - transform.position;
 		
-			if (deltaVec.magnitude < 0.02f)
-				return;
+		if (deltaVec.magnitude < 0.02f)
+			return;
 
 		float transformZ = transform.position.z;
 		
@@ -32,5 +41,4 @@ public class CameraFollow : MonoBehaviour
 		transform.position = newPos;
 	}
 }
-
 }
