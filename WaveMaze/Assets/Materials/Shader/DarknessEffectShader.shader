@@ -6,6 +6,9 @@
 
 		_Radius ("Radius", Range(0, 1)) = 0.2
 		_Penumbra ("Penumbra", Range(0, 1)) = 0.3
+
+		_ShakeX ("ShakeX", Float) = 0.0
+		_ShakeY ("ShakeY", Float) = 0.0
 	}
 	SubShader
 	{
@@ -42,6 +45,9 @@
 			
 			half _Radius;
 			half _Penumbra;
+
+			half _ShakeX;
+			half _ShakeY;
 			
 			sampler2D _MainTex;
 
@@ -51,7 +57,7 @@
 
 				float aspect = 16.0 / 9.0;
 				// relative center of object (with quad with uv textures going from 0 to 1 this is the center)
-				float2 center = float2(0.5 * aspect, 0.5);
+				float2 center = float2(0.5 * aspect + _ShakeX, 0.5 + _ShakeY);
 
 				// distance to center is used to check if we are on circle
 				float2 transformedUV = float2( i.uv.x * aspect, i.uv.y );
