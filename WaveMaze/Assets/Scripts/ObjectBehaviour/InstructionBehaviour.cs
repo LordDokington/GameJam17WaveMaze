@@ -14,10 +14,18 @@ public class InstructionBehaviour : MonoBehaviour
 
     private string _story;
     private InstructionState _currentState;
+    private float _timeBetweenTextMax = 1f;
+    private float _timeBetweenTextCurrent;
+    private float _fadingTimeMax = 1f;
+    private float _fadingTimeCurrent;
+    //private float _timeShowTextMax = 1f;
+    private float _timeShowTextCurrent;
+
 
     // Use this for initialization
     void Start()
     {
+
         _currentState = InstructionState.Idle;
         //TODO: Read Textfile and insert string
         _story = "You are not alone$There is always a light with you";
@@ -35,8 +43,10 @@ public class InstructionBehaviour : MonoBehaviour
                 fadingIn();
                 break;
             case InstructionState.Show:
+                showText();
                 break;
             case InstructionState.FadeOut:
+                fadingOut();
                 break;
         }
     }
