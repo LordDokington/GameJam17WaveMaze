@@ -13,6 +13,7 @@ public class InstructionBehaviour : MonoBehaviour
         FadeOut
     }
 
+    public GameObject SkipText;
     private List<string> _story = new List<string>();
     private string _currentText;
     private InstructionState _currentState;
@@ -22,12 +23,11 @@ public class InstructionBehaviour : MonoBehaviour
     private float _fadingTimeCurrent;
     private float _timeShowTextLetter = 1f;
     private float _timeShowTextCurrent;
-
+    private bool _isSkipTextShown;
 
     // Use this for initialization
     void Start()
     {
-
         _currentState = InstructionState.Idle;
         //TODO: Read Textfile and insert string
         _story = ("You are not alone$There is always a light with you").Split('$').ToList();
@@ -50,6 +50,17 @@ public class InstructionBehaviour : MonoBehaviour
             case InstructionState.FadeOut:
                 fadingOut();
                 break;
+        }
+
+        if (GameManager.Instance.FinishLoading)
+        {
+            if (!_isSkipTextShown)
+            {
+                _isSkipTextShown = true;
+                SkipText.SetActive(true);
+            }
+            if(_isSkipTextShown && Input.GetKeyDown(KeyCode.Space))
+                endInstructions();
         }
     }
 
@@ -94,6 +105,12 @@ public class InstructionBehaviour : MonoBehaviour
         {
             _currentState = InstructionState.Idle;
             _fadingTimeCurrent = _fadingTimeMax;
+            GameManager.Instance.FinishLoading = true;
         }
+    }
+
+    private void endInstructions()
+    {
+        Destroy(gameObject);
     }
 }
