@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuBehaviour : MonoBehaviour {
+public class MenuBehaviour : MonoBehaviour
+{
 
 	// Use this for initialization
 	void Start () {
@@ -13,4 +14,17 @@ public class MenuBehaviour : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void OnStartGameClicked()
+    {
+
+    }
+
+    public void OnExitGameClicked()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
 }
