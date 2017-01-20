@@ -1,0 +1,55 @@
+Allgemeine Erklärung:
+
+- Schwarzer Punkt: Spieler.
+  Grauer Bereich um den schwarzen Punkt: Lichtkegel
+  
+
+- Lila Punkt: 
+  Ein Gegner der sich von der einen Punktposition über die Linie zur anderen Punktposition bewegt.
+  Spieler darf den Punkt und dessen Leuchten nicht berühren.
+  Gegner leuchten in der gleichen Range wie der Spieler.
+  Berührt der Spieler den Punkt, skalliert er auf Null, wird an den Start gesetzt und skalliert hier wieder auf die vorherige Größe
+
+- Grüner Punkt:
+  Ein Gegner, der dem Spieler folgt, sobald sich dieser in seiner Reichweite befindet 
+  Reichweite Balancing Wert (Ca so groß wie der hier angezeigte Lichtkegel des Spielers)
+
+
+- Startposition Level: Gang links
+- Zielposition Lev3el: Gang rechts
+
+- Stirbt ein Spieler innerhalb des Levels, teilt sich der Punkt im nächsten Level, sodass wieder zwei Spieler da sind.
+
+
+lvl 1:
+- Spieler startet und bewegt sich aus der Kammer heraus
+Herausforderung: 
+  - Weg um die Steine herum finden
+
+
+lvl 2:
+- Spieler sucht den richtigen Weg durch die Höhle
+Herausforderung: Weg um die Steine herum finden + erstem Gegner ausweichen
+
+
+lvl 3:
+- Lila Punkte
+- blaue Zone: Ein Spieler kann diesen Bereich alle betreten.
+  Betritt der zweite Spieler gleichzeitig mit dem ersten Spieler diese Zone, bricht der Boden weg.
+  Level startet von vorne
+Hearusforderung: Weg zwischen den Gegnern finden. Rätsel um brechenden Boden lösen.
+
+
+lvl 4:
+- roter Punkt:
+  Licht, das optisch aussieht wie der Spieler. Sobald der Spieler in der Reichtweite des Punktes befindet,
+  bewegt sich dieser langsam vorwärts. (Startposition links, Zielposition rechts)
+  Ziel: Spieler läuft in eine Sackgasse und wird von grünem Punkt vernichtet
+Herausforderung: Das fremde Licht meiden. Die lila Gegner umlaufen. 
+Am Ende einen der Spieler opfern (grünen Punkt weglocken), damit der zweite Spieler ins Ziel kommt
+
+lvl 5:
+- gelbe Linien:
+  Flamme zündet Seil an und gelangt so auf die andere Seite
+  nur einer der Spieler kommt am Ende an
+Herausforderung: richtige Linie 
