@@ -12,12 +12,16 @@ public class GameManager : SingletonBehaviour<GameManager>
         get { return _isInstructionMode; }
     }
 
+	void Awake(){	
+		DontDestroyOnLoad(this.transform);
+	}
     // Use this for initialization
     void Start()
     {
        var instrGO = Resources.Load("Prefabs/InstructionObject") as GameObject;
         _instructionsGO = Instantiate(instrGO);
         _isInstructionMode = true;
+
     }
 
     // Update is called once per frame
