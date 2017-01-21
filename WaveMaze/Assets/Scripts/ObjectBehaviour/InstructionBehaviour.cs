@@ -30,12 +30,15 @@ public class InstructionBehaviour : MonoBehaviour
     void Start()
     {
         _currentState = InstructionState.Idle;
+        _timeBetweenTextCurrent = _timeBetweenTextMax;
+        _fadingTimeCurrent = _fadingTimeMax;        
         _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(TextStoryLine.color.a);
         switch(_currentState)
         {
             case InstructionState.Idle:
