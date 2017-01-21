@@ -1,0 +1,72 @@
+﻿<GameData>
+  <m_IntroTextList>
+    <string>Einst hülltet ihr das Land in Licht und Wärme.</string>
+    <string>Die Sonne glitzerte und das Grün der Bäume strahlte um die Wette.</string>
+    <string>Doch dann kam das Dunkel.</string>
+    <string>Es raubte die Sicht und seit dem Tag herrscht Kälte.</string>
+    <string>Und verbannte euch in die Verliese unter dem Berg... </string>
+  </m_IntroTextList>
+  <m_LevelTextList>
+    <string>Hallo?</string>
+    <string>Ist da jemand?</string>
+    <string>Hallooo??</string>
+  </m_LevelTextList>
+  <m_OutroTextList>
+    <string>Ihr habt es geschafft!</string>
+    <string>Ihr seid den Bluthunden des Dunkels tatsächlich entwischt!</string>
+    <string>Erleuchtet und das Land soll nie wieder in Dunkelheit versinken!</string>
+  </m_OutroTextList>
+  <m_CreditsTextList>
+    <string>Test</string>
+  </m_CreditsTextList>
+  <m_LevelDataList>
+    <LevelData>
+      <m_LevelNumber>1</m_LevelNumber>
+      <m_EnemyCount>0</m_EnemyCount>
+      <HasEntry>false</HasEntry>
+      <HasEnd>false</HasEnd>
+      <SpornPlayer1>
+        <x>100</x>
+        <y>100</y>
+      </SpornPlayer1>
+      <SpornPlayer2>
+        <x>100</x>
+        <y>100</y>
+      </SpornPlayer2>
+      <EntryArray>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </EntryArray>
+      <ExitArray>
+        <x>10</x>
+        <y>300</y>
+        <z>10</z>
+      </ExitArray>
+    </LevelData>
+    <LevelData>
+      <m_LevelNumber>2</m_LevelNumber>
+      <m_EnemyCount>0</m_EnemyCount>
+      <HasEntry>true</HasEntry>
+      <HasEnd>false</HasEnd>
+      <SpornPlayer1>
+        <x>100</x>
+        <y>100</y>
+      </SpornPlayer1>
+      <SpornPlayer2>
+        <x>100</x>
+        <y>100</y>
+      </SpornPlayer2>
+      <EntryArray>
+        <x>10</x>
+        <y>300</y>
+        <z>10</z>
+      </EntryArray>
+      <ExitArray>
+        <x>10</x>
+        <y>300</y>
+        <z>10</z>
+      </ExitArray>
+    </LevelData>
+  </m_LevelDataList>
+</GameData>

@@ -66,8 +66,8 @@
 
 				float aspect = 16.0 / 9.0;
 
-				_PlayerPos.x = 0.5;
-				_PlayerPos.y = 0.5;
+				//_PlayerPos.x -= 1;
+				//_PlayerPos.y = 0.5;
 
 				// relative center of object (with quad with uv textures going from 0 to 1 this is the center)
 				float2 center = float2(_PlayerPos.x - (1 - aspect) / 2  + _ShakeX, _PlayerPos.y + _ShakeY);

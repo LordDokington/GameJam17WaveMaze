@@ -29,7 +29,9 @@ public class DarknessEffect : MonoBehaviour {
 	
 	Vector2 NormalizedPlayerPos(Vector2 playerPos)
 	{
-		Vector3 transformedPos =  (playerPos + new Vector2 (5, 5)) / 10f;
+        Vector2 camPos = new Vector2(transform.position.x, transform.position.y);
+
+        Vector2 transformedPos =  (playerPos - camPos + new Vector2 (5, 5)) / 10f;
 		transformedPos.y = 1 - transformedPos.y;
 		return transformedPos;
 	}

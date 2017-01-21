@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-        
+        spornPlayerOne();
     }
 	
 	// Update is called once per frame
@@ -34,9 +34,9 @@ public class PlayerController : MonoBehaviour
 
     public void spawnPlayerOne()
     {
-        CurrentLevelData = GameObject.Find("LevelManager").GetComponent<LevelManager>().CurrentLevelData;
-        Vector2 aVector = CurrentLevelData.SpornPlayer1;
-        this.transform.position = new Vector3( aVector.x, aVector.y, 0);
+        //CurrentLevelData = GameObject.Find("LevelManager").GetComponent<LevelManager>().CurrentLevelData;
+        //Vector2 aVector = CurrentLevelData.SpornPlayer1;
+        //this.transform.position = new Vector3( aVector.x, aVector.y, 0);
     }
 
 	///////////////////////

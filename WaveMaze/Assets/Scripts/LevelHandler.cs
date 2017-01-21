@@ -78,7 +78,7 @@ namespace WaveMaze{
 			
 		}
 
-        private Sprite LoadTexture(string ThePath) {
+        private Sprite LoadTexture(string ThePath){
             Debug.Log(ThePath);
             Texture2D tex = Resources.Load<Texture2D>(ThePath);
             return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));

@@ -38,9 +38,12 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
     void Update()
     {
         walkingTimeLeft = walkingTimeLeft - speed * Time.deltaTime;
-        transform.position = Vector3.Lerp(Points[startIndex].position, Points[nextIndex].position, 1- walkingTimeLeft);
-        if (Vector3.Distance(transform.position, Points[nextIndex].position) <= 0f)
-            gotoNextPoint();
+        if (Points.Length != 0)
+        {
+            transform.position = Vector3.Lerp(Points[startIndex].position, Points[nextIndex].position, 1 - walkingTimeLeft);
+            if (Vector3.Distance(transform.position, Points[nextIndex].position) <= 0f)
+                gotoNextPoint();
+        }
     }
 
 	void OnTriggerEnter2D(Collider2D other)
