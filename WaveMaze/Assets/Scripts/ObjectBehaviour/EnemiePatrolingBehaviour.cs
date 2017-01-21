@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemieBehaviour : MonoBehaviour
+public class EnemiePatrolingBehaviour : MonoBehaviour
 {
     public Transform[] Points;
     public bool ShouldStopAtEnd;
@@ -30,8 +30,7 @@ public class EnemieBehaviour : MonoBehaviour
         if (nextIndex == Points.Length - 1)
             nextIndex = 0;
         else
-            ++nextIndex;
-        
+            ++nextIndex;        
     }
 
 
