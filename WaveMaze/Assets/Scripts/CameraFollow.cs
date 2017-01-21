@@ -8,7 +8,7 @@ public class CameraFollow : MonoBehaviour
 {
 	public GameObject target;
 
-	private float interpolationSpeed = 0.14f;
+	public float interpolationSpeed = 0.14f;
 
 	// Use this for initialization
 	void Start ()
