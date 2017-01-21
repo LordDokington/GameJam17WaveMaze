@@ -52,7 +52,7 @@ public class InstructionBehaviour : MonoBehaviour
                 break;
         }
 
-        if (GameManager.Instance.FinishLoading)
+        if (GameManager.Instance.FinishPreloading)
         {
             if (!_isSkipTextShown)
             {
@@ -105,7 +105,7 @@ public class InstructionBehaviour : MonoBehaviour
         {
             _currentState = InstructionState.Idle;
             _fadingTimeCurrent = _fadingTimeMax;
-            GameManager.Instance.FinishLoading = true;
+            GameManager.Instance.FinishPreloading = true;
         }
     }
 

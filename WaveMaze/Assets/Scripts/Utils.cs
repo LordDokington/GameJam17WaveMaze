@@ -35,19 +35,18 @@ public class Utils
 	public static string DeSerialize(string name, string GamePath)
 	{
 		System.IO.StreamReader reader = new System.IO.StreamReader(GamePath);
-	string line;
-	while((line = reader.ReadLine()) != string.Empty)
-	{
-	string[] id_value = line.Split('=');
-	switch (id_value[0])
-	{
-	case "name":
-	name = id_value[1].ToString();
-	break;
-	}
-	}
-	reader.Close();
-	return name;
-	}
+		string line = "Undef";
+		while(( line = reader.ReadLine() ) != string.Empty){
+			Debug.Log (line);
+			string[] id_value = line.Split('=');
+			switch (id_value[0]){
+				case "name":
+					name = id_value[1].ToString();
+				break;
+				}
+			}
+		reader.Close();
+		return name;
+		}
 	}
 }
