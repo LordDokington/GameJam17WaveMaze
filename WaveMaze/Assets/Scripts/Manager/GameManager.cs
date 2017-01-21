@@ -3,29 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 using Assets.Scripts.Manager;
+using System.IO;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
-    public bool FinishPreloading;
-	private GameData m_GameData;
+    public enum GameState
+    {
+        Menu,
+        Introduction,
+        Game,
+        Credits
+    }
 
-	public GameData GetGameData{
-		get{
-			return m_GameData;		
-		}
-	}
+    public GameState CurrentState;
+    public bool FinishPreloading;
+    private GameData m_GameData;
+
+    public GameData GetGameData
+    {
+        get
+        {
+            return m_GameData;
+        }
+    }
 
     public override void AwakeSingleton()
     {
-		DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization
     void Start()
     {
 #if UNITY_EDITOR
+        
         GameDataGenerator aGameDataGenerator = new GameDataGenerator();
-        aGameDataGenerator.Save();
+        aGameDataGenerator.Save( !File.Exists(Defines.c_GameDataFile) );
 #endif
         FinishPreloading = false;
 
