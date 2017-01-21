@@ -33,7 +33,10 @@ namespace Assets.Scripts.Manager
 
         void WriteInstructions()
         {
-            m_GameData.m_InstructionList = new List<string>{ "Test" };
+            m_GameData.m_IntroTextList = new List<string>{ "Test" };
+            m_GameData.m_OutroTextList = new List<string> { "Test" };
+            m_GameData.m_OutroTextList = new List<string> { "Test" };
+            m_GameData.m_OutroTextList = new List<string> { "Test" };
         }
 
         void WriteLevelData()
