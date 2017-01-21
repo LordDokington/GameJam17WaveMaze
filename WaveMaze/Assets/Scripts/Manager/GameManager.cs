@@ -6,18 +6,29 @@ using Assets.Scripts.Manager;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
-    public bool FinishPreloading;
-	private GameData m_GameData;
+    public enum GameState
+    {
+        Menu,
+        Introduction,
+        Game,
+        Credits
+    }
 
-	public GameData GetGameData{
-		get{
-			return m_GameData;		
-		}
-	}
+    public GameState CurrentState;
+    public bool FinishPreloading;
+    private GameData m_GameData;
+
+    public GameData GetGameData
+    {
+        get
+        {
+            return m_GameData;
+        }
+    }
 
     public override void AwakeSingleton()
     {
-		DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization
