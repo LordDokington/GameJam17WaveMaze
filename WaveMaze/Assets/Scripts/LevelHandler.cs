@@ -64,7 +64,8 @@ namespace WaveMaze{
 		}
 
 		void LoadLevelGround(){
-			#if UNITY_EDITOR 
+#if UNITY_EDITOR
+            Debug.Log("LVLGoundPath: " + Path.GetDirectoryName(GroundFolder) + "/" + LevelString);
 				m_LevelGround = LoadPNG(Path.GetDirectoryName( GroundFolder ) + "/" + LevelString);
 			#else
 				m_LevelGround = LoadPNG(Path.GetDirectoryName( c_GroundFolder) + "/" + LevelString);
