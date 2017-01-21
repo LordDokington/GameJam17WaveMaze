@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class InstructionBehaviour : MonoBehaviour
@@ -14,6 +15,7 @@ public class InstructionBehaviour : MonoBehaviour
     }
 
     public GameObject SkipText;
+    public Text TextStoryLine;
     private List<string> _story = new List<string>();
     private string _currentText;
     private InstructionState _currentState;
@@ -73,7 +75,7 @@ public class InstructionBehaviour : MonoBehaviour
             _timeBetweenTextCurrent = _timeBetweenTextMax;
             if (_story.Count > 0)
             {
-                _currentText = "";
+                //TextStoryLine.text = _currentText;
             }
         }
     }
@@ -85,7 +87,7 @@ public class InstructionBehaviour : MonoBehaviour
         {
             _currentState = InstructionState.Show;
             _fadingTimeCurrent = _fadingTimeMax;
-            //_timeShowTextCurrent = 
+            _timeShowTextCurrent = _fadingTimeMax;
         }
     }
 
@@ -94,7 +96,7 @@ public class InstructionBehaviour : MonoBehaviour
         _timeShowTextCurrent -= Time.deltaTime;
         if (_timeShowTextCurrent <= 0f)
         {
-            _currentState = InstructionState.Show;
+            _currentState = InstructionState.FadeOut;
             _timeShowTextCurrent = float.MaxValue;
         }
     }

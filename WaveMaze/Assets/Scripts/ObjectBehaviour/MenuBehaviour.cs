@@ -21,6 +21,11 @@ public class MenuBehaviour : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    public void OnCreditsClicked()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
     public void OnExitGameClicked()
     {
 #if UNITY_EDITOR
