@@ -8,6 +8,7 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
 {
     public Transform[] Points;
     public bool ShouldStopAtEnd;
+    private bool doNothing;
     private int nextIndex = 1;
     private int startIndex = 0;
     private float speed = 0.2f;
@@ -18,6 +19,11 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
     void Start()
     {
         walkingTimeLeft = timeToToWalk;
+        doNothing = true;
+        if(ShouldStopAtEnd)
+        {
+            //TODO: light circle
+        }
     }
 
     private void gotoNextPoint()
@@ -28,7 +34,12 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
 
         startIndex = nextIndex;
         if (nextIndex == Points.Length - 1)
-            nextIndex = 0;
+        {
+            if (!ShouldStopAtEnd)
+                nextIndex = 0;
+            else
+                doNothing = true;
+        }
         else
             ++nextIndex;        
     }
@@ -37,12 +48,21 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        walkingTimeLeft = walkingTimeLeft - speed * Time.deltaTime;
-        if (Points.Length != 0)
+        if (Vector3.Distance(GameManager.Instance.Player1.transform.position, transform.position) <= 10 ||
+            Vector3.Distance(GameManager.Instance.Player2.transform.position, transform.position) <= 10)
         {
-            transform.position = Vector3.Lerp(Points[startIndex].position, Points[nextIndex].position, 1 - walkingTimeLeft);
-            if (Vector3.Distance(transform.position, Points[nextIndex].position) <= 0f)
-                gotoNextPoint();
+            doNothing = false;
+        }
+
+        if (!doNothing)
+        {
+            walkingTimeLeft = walkingTimeLeft - speed * Time.deltaTime;
+            if (Points.Length != 0)
+            {
+                transform.position = Vector3.Lerp(Points[startIndex].position, Points[nextIndex].position, 1 - walkingTimeLeft);
+                if (Vector3.Distance(transform.position, Points[nextIndex].position) <= 0f)
+                    gotoNextPoint();
+            }
         }
     }
 

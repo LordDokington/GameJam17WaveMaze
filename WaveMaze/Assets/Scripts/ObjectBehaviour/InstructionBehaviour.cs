@@ -145,6 +145,7 @@ public class InstructionBehaviour : MonoBehaviour
             _story = GameManager.Instance.GetGameData.m_IntroTextList; 
             Background.sprite = Resources.Load<Sprite>("Sprites/intro_bg");
         }
+
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
         _fadingTimeCurrent = _fadingTimeMax;
