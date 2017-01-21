@@ -14,6 +14,7 @@ public class InstructionBehaviour : MonoBehaviour
         FadeOut
     }
 
+    public Image Background;
     public GameObject SkipText;
     public Text TextStoryLine;
     private List<string> _story = new List<string>();
@@ -34,24 +35,24 @@ public class InstructionBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _currentState = InstructionState.Idle;
-        _timeBetweenTextCurrent = _timeBetweenTextMax;
-        _fadingTimeCurrent = _fadingTimeMax;        
-        _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-		Show();
+        GameManager.Instance.FindPlayer();
+        GameManager.Instance.SetInstrObj = gameObject;
+        Init(false);
 	}
 
-	void Show()
+	void HideOther()
 	{
 		GameManager.Instance.Player1.SetActive (false);
-        GameManager.Instance.Player2.SetActive(false);
+        if(GameManager.Instance.Player2 != null)
+            GameManager.Instance.Player2.SetActive(false);
         GameManager.Instance.ShouldCameraDarknessBeOn(false);
 	}
 
-	void Hide()
+	void ShowOther()
 	{
         GameManager.Instance.Player1.SetActive(true);
-        GameManager.Instance.Player2.SetActive(true);
+        if (GameManager.Instance.Player2 != null)
+            GameManager.Instance.Player2.SetActive(true);
         GameManager.Instance.ShouldCameraDarknessBeOn(true);
     }
 
@@ -141,7 +142,25 @@ public class InstructionBehaviour : MonoBehaviour
 
     private void endInstructions()
     {
-		Hide();
-        Destroy(gameObject);
+		ShowOther();
+        gameObject.SetActive(false);
+    }
+
+    public void Init(bool IsOutro)
+    {
+        if(IsOutro)
+        {
+            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
+            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+        }
+        else
+        {
+            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
+            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+        }
+        _currentState = InstructionState.Idle;
+        _timeBetweenTextCurrent = _timeBetweenTextMax;
+        _fadingTimeCurrent = _fadingTimeMax;
+        HideOther();
     }
 }

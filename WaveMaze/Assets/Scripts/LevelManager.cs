@@ -12,7 +12,7 @@ namespace WaveMaze{
         GameObject m_CurrentLevelGo;
         SpriteRenderer m_SpriteRenderer;
         Sprite m_CurrentLevelGoundTexture;
-        int m_CurrentLevel = 0;
+        int m_CurrentLevel = 1;
 
         Color c_EntryColor = Color.red;
         Color c_ExitColor = Color.green;
@@ -22,6 +22,12 @@ namespace WaveMaze{
         public Sprite TransitionGround { get { return m_TransitionGround; } }
         private Sprite m_TransitionCollider;
         public Sprite TransitionCollider { get { return m_TransitionCollider; } }
+
+        public LevelData CurrentLevelData{
+            get{
+                return m_LevelList.Find(x => x.m_LevelNumber == m_CurrentLevel).m_LevelData;
+            }
+        }
 
         // Use this for initialization
         void Start() {
@@ -46,7 +52,7 @@ namespace WaveMaze{
 
 		void addLevel(int LevelCount)
 		{
-			if (m_LevelList == null) 
+			if (m_LevelList == null)
 			{
 				m_LevelList = new List<LevelHandler>();
 			}
@@ -72,8 +78,5 @@ namespace WaveMaze{
         void StartTransition() {
 
         }
-
-
-
     }
 }
