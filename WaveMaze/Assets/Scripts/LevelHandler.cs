@@ -95,11 +95,13 @@ namespace WaveMaze{
 
 		void LoadLevelCollider(){
 #if UNITY_EDITOR
-            string aPath = ColliderFolder + LevelString;
+			string aPath = "LevelCollider/LVL1";//ColliderFolder + LevelString;
 #else
 			string aPath = ColliderFolder + LevelString;
 #endif
             m_LevelCollider = LoadTexture(aPath);
+			if (m_LevelCollider == null)
+				Debug.LogWarning ("Oh NOOOO!");
             
         }
 
