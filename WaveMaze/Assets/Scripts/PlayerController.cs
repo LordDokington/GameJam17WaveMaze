@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using WaveMaze;
 
 public class PlayerController : MonoBehaviour
 {
 	public float speed = 15f;
     public bool IsPlayerOne = true;
+    LevelData CurrentLevelData;
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+        spornPlayerOne();
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -29,4 +31,11 @@ public class PlayerController : MonoBehaviour
             transform.Translate(new Vector3(x, y, 0));
         }
 	}
+
+    void spornPlayerOne()
+    {
+        CurrentLevelData = GameObject.Find("LevelManager").GetComponent<LevelManager>().CurrentLevelData;
+        Vector2 aVector = CurrentLevelData.SpornPlayer1;
+        this.transform.position = new Vector3( aVector.x, aVector.y, 0);
+    }
 }

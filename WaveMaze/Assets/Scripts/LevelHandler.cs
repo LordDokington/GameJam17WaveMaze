@@ -25,7 +25,7 @@ namespace WaveMaze{
         string m_LevelName;
 		public readonly int m_LevelNumber = 1;
 
-        LevelData m_LevelData;
+        public LevelData m_LevelData;
 
         string LevelString
         {

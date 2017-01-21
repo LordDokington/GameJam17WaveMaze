@@ -21,6 +21,12 @@ namespace WaveMaze{
         private Sprite m_TransitionCollider;
         public Sprite TransitionCollider { get { return m_TransitionCollider; } }
 
+        public LevelData CurrentLevelData{
+            get{
+                return m_LevelList.Find(x => x.m_LevelNumber == m_CurrentLevel).m_LevelData;
+            }
+        }
+
         // Use this for initialization
         void Start() {
             
@@ -39,7 +45,7 @@ namespace WaveMaze{
 
 		void addLevel(int LevelCount)
 		{
-			if (m_LevelList == null) 
+			if (m_LevelList == null)
 			{
 				m_LevelList = new List<LevelHandler>();
 			}
@@ -64,8 +70,5 @@ namespace WaveMaze{
         void StartTransition() {
 
         }
-
-
-
     }
 }
