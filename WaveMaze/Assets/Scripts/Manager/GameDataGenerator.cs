@@ -38,11 +38,32 @@ namespace Assets.Scripts.Manager
 
         void WriteLevelData()
         {
-                m_GameData.m_LevelDataList = new List<LevelData>();
-                LevelData aLevel1 = new LevelData();
-                aLevel1.m_EntryColor = Color.red;
-                aLevel1.m_EnemyCount = 1;
-                m_GameData.m_LevelDataList.Add(aLevel1);
+            m_GameData.m_LevelDataList = new List<LevelData>();
+            setLevel1();
+            setLevel2();
+        }
+
+        void setLevel1() {
+            LevelData aLevel1 = new LevelData();
+            aLevel1.m_LevelNumber = 1;
+            aLevel1.m_EnemyCount = 0;
+            aLevel1.HasEntry = false;
+            aLevel1.HasEnd = false;
+            aLevel1.SpornPlayer1 = new Vector2(100,100);
+            aLevel1.SpornPlayer2 = new Vector2(100, 100);
+            m_GameData.m_LevelDataList.Add(aLevel1);
+        }
+
+        void setLevel2()
+        {
+            LevelData aLevel2 = new LevelData();
+            aLevel2.m_LevelNumber = 2;
+            aLevel2.m_EnemyCount = 0;
+            aLevel2.HasEntry = true;
+            aLevel2.HasEnd = false;
+            aLevel2.SpornPlayer1 = new Vector2(100, 100);
+            aLevel2.SpornPlayer2 = new Vector2(100, 100);
+            m_GameData.m_LevelDataList.Add(aLevel2);
         }
     }
 }
