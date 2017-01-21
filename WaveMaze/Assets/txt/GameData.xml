@@ -6,14 +6,19 @@
     <string>Es raubte die Sicht und seit dem Tag herrscht Kälte.</string>
     <string>Und verbannte euch in die Verliese unter dem Berg... </string>
   </m_IntroTextList>
+  <m_LevelTextList>
     <string>Hallo?</string>
     <string>Ist da jemand?</string>
     <string>Hallooo??</string>
+  </m_LevelTextList>
   <m_OutroTextList>
     <string>Ihr habt es geschafft!</string>
-    <string>Ihr seid den Bluthunden des Dunkel tatsächlich entwischt!</string>
+    <string>Ihr seid den Bluthunden des Dunkels tatsächlich entwischt!</string>
     <string>Erleuchtet und das Land soll nie wieder in Dunkelheit versinken!</string>
   </m_OutroTextList>
+  <m_CreditsTextList>
+    <string>Test</string>
+  </m_CreditsTextList>
   <m_LevelDataList>
     <LevelData>
       <m_LevelNumber>1</m_LevelNumber>

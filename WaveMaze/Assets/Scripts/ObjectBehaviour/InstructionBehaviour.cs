@@ -15,7 +15,6 @@ public class InstructionBehaviour : MonoBehaviour
     }
 
     public Image Background;
-    public GameObject SkipText;
     public Text TextStoryLine;
     private List<string> _story = new List<string>();
     private InstructionState _currentState;
@@ -25,7 +24,6 @@ public class InstructionBehaviour : MonoBehaviour
     private float _fadingTimeCurrent;
     private float _timeShowTextLetter = 0.1f;
     private float _timeShowTextCurrent;
-    private bool _isSkipTextShown;
 
 	void Awake()
 	{
@@ -74,17 +72,6 @@ public class InstructionBehaviour : MonoBehaviour
                 fadingOut();
                 break;
         }
-
-        if (GameManager.Instance.FinishPreloading)
-        {
-            if (!_isSkipTextShown)
-            {
-                _isSkipTextShown = true;
-                SkipText.SetActive(true);
-            }
-            if(_isSkipTextShown && Input.GetKeyUp(KeyCode.Space))
-                endInstructions();
-        }
     }
 
     private void idling()
@@ -101,7 +88,7 @@ public class InstructionBehaviour : MonoBehaviour
             }
             else
             {
-                //TODO: end instructions endInstructions();
+                endInstructions();
             }
         }
     }
@@ -150,13 +137,13 @@ public class InstructionBehaviour : MonoBehaviour
     {
         if(IsOutro)
         {
-            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+            _story = GameManager.Instance.GetGameData.m_OutroTextList;
+            Background.sprite = Resources.Load<Sprite>("Sprites/outro_bg");
         }
         else
         {
-            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+            _story = GameManager.Instance.GetGameData.m_IntroTextList; 
+            Background.sprite = Resources.Load<Sprite>("Sprites/intro_bg");
         }
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;

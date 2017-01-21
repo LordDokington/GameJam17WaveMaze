@@ -61,7 +61,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         GameDataGenerator aGameDataGenerator = new GameDataGenerator();
         aGameDataGenerator.Save( !File.Exists(Defines.c_GameDataFile) );
 #endif
-        FinishPreloading = false;
+        FinishPreloading = true;
 
         m_GameData = GameDataGenerator.Load();
     }
