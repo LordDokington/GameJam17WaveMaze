@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 	public float speed = 15f;
+    public bool IsPlayerOne = true;
 
 	// Use this for initialization
 	void Start () {
@@ -13,9 +14,19 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		float x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-		float y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        if (IsPlayerOne)
+        {
+            float x = Input.GetAxis("HorizontalP1") * speed * Time.deltaTime;
+            float y = Input.GetAxis("VerticalP1") * speed * Time.deltaTime;
 
-		transform.Translate (new Vector3 (x, y, 0));	
+            transform.Translate(new Vector3(x, y, 0));
+        }
+        else
+        {
+            float x = Input.GetAxis("HorizontalP2") * speed * Time.deltaTime;
+            float y = Input.GetAxis("VerticalP2") * speed * Time.deltaTime;
+
+            transform.Translate(new Vector3(x, y, 0));
+        }
 	}
 }
