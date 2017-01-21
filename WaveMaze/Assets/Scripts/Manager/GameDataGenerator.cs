@@ -35,8 +35,8 @@ namespace Assets.Scripts.Manager
         {
             m_GameData.m_IntroTextList = new List<string>{ "Test" };
             m_GameData.m_OutroTextList = new List<string> { "Test" };
-            m_GameData.m_OutroTextList = new List<string> { "Test" };
-            m_GameData.m_OutroTextList = new List<string> { "Test" };
+            m_GameData.m_LevelTextList = new List<string> { "Test" };
+            m_GameData.m_CreditsTextList = new List<string> { "Test" };
         }
 
         void WriteLevelData()
