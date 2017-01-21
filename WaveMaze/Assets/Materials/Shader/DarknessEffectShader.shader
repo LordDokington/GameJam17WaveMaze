@@ -61,7 +61,7 @@
 			fixed4 _PlayerPos;
 
 			fixed4 frag (v2f i) : SV_Target
-			{
+			{		
 				fixed4 col = tex2D(_MainTex, i.uv);
 
 				float aspect = 16.0 / 9.0;
