@@ -10,4 +10,9 @@ public class EnemyLightReaction : MonoBehaviour {
 	{
 		Graphics.Blit(source, destination, material);
 	}
+
+	void Update()
+	{
+		//mater	
+	}
 }
