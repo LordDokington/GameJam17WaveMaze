@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using WaveMaze;
 
 public class EnemiePatrolingBehaviour : MonoBehaviour
 {
     public Transform[] Points;
+    private DarknessEffect darknessScript;
     public bool ShouldStopAtEnd;
     private bool doNothing;
     private int nextIndex = 1;
@@ -22,7 +24,9 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
         doNothing = true;
         if(ShouldStopAtEnd)
         {
-
+            darknessScript = GameObject.FindWithTag("MainCamera").GetComponent<DarknessEffect>();
+            darknessScript.EnemyGlowRadius = 0.2f;
+            darknessScript.EnemyGlowPosition = transform.position;
             //TODO: light circle
         }
     }
