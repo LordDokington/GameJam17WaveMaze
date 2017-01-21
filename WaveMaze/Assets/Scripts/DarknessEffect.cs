@@ -46,12 +46,13 @@ public class DarknessEffect : MonoBehaviour {
 
 		if (m_brightnessCycleTime <= Mathf.PI) 
 		{
-			if (m_brightnessCycleTime >= Mathf.PI / 2) {
-				m_brightnessCycleTime += Time.deltaTime * 0.7f;
+			if (m_brightnessCycleTime >= Mathf.PI / 2)
+			{
+				m_brightnessCycleTime += Time.deltaTime * shrinkSpeed;
 			}
 			else
 			{
-				m_brightnessCycleTime += Time.deltaTime * m_brightnessCycleSpeed;
+				m_brightnessCycleTime += Time.deltaTime * expandSpeed;
 			}
 			float scale = Mathf.Sin (m_brightnessCycleTime) * m_chargeDecelerator;
 			material.SetFloat ("_Radius", scale);
@@ -61,7 +62,7 @@ public class DarknessEffect : MonoBehaviour {
 			if (Input.GetKey (KeyCode.Space))
 			{
 				ChargeFlash ();	
-				m_charge += 0.03f * Time.deltaTime;
+				m_charge += 0.3f * Time.deltaTime;
 			} 
 			else 
 			{
@@ -79,16 +80,16 @@ public class DarknessEffect : MonoBehaviour {
 	public void ChargeFlash()
 	{
 		float penumbraDecrease = 1.0f;
-		m_penumbra = Mathf.Lerp (m_penumbra, 0.1f, penumbraDecrease * Time.deltaTime);
+		m_penumbra = Mathf.Lerp (m_penumbra, minPenumbra, penumbraDecrease * Time.deltaTime);
 		material.SetFloat ("_Penumbra", m_penumbra);
 
-		float shakeAmount = (1.0f - m_penumbra / (defaultPenumbra - 0.1f)) * 0.05f;
+			float shakeAmount = ( m_penumbra / (defaultPenumbra - minPenumbra) ) * shakeStrength;
 		material.SetFloat ( "_ShakeX", Utils.RandRange(-shakeAmount, shakeAmount) );
 	}
 
 	public void RecoverFlash()
 	{
-		float penumbraIncrease = 0.4f;
+		float penumbraIncrease = 0.2f;
 		m_penumbra = Mathf.Lerp (m_penumbra, defaultPenumbra, penumbraIncrease * Time.deltaTime);
 		material.SetFloat ("_Penumbra", m_penumbra);
 	}
@@ -108,7 +109,14 @@ public class DarknessEffect : MonoBehaviour {
 	float m_chargeDecelerator;
 
 	public float minCharge = 0.1f;
+
 	public float defaultPenumbra = 0.1f;
+	public float minPenumbra = 0.07f;
+
+	public float expandSpeed = 10f;
+	public float shrinkSpeed = 0.5f;
+
+	public float shakeStrength = 0.02f;
 }
 
 }

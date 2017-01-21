@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-	private float speed = 15f;
+	public float speed = 15f;
 
 	// Use this for initialization
 	void Start () {
