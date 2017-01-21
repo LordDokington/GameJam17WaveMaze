@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace WaveMaze{
 	public class LevelManager : MonoBehaviour {
@@ -10,9 +11,18 @@ namespace WaveMaze{
         SpriteRenderer m_SpriteRenderer;
         Sprite m_CurrentLevelGoundTexture;
         int m_CurrentLevel = 0;
-        
-		// Use this for initialization
-		void Start() {
+
+        Color c_EntryColor = Color.red;
+        Color c_ExitColor = Color.green;
+        Color c_DontMoveOverColor = Color.black;
+
+        private Sprite m_TransitionGround;
+        public Sprite TransitionGround { get { return m_TransitionGround; } }
+        private Sprite m_TransitionCollider;
+        public Sprite TransitionCollider { get { return m_TransitionCollider; } }
+
+        // Use this for initialization
+        void Start() {
             
             m_CurrentLevelGo = new GameObject("CurrentLevelGo");
             m_SpriteRenderer = m_CurrentLevelGo.AddComponent<SpriteRenderer>();
