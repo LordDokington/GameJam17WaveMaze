@@ -8,14 +8,14 @@ public class GameData{
     public List<string> m_LevelTextList;
     public List<string> m_OutroTextList;
     public List<string> m_CreditsTextList;
-    public List<LevelData> m_LevelDataList;
+    //public List<LevelData> m_LevelDataList;
 
 	public GameData()
 	{
  
     }     
 }
-
+/*
 [System.Serializable]
 public class LevelData{
     public int m_LevelNumber;
@@ -27,3 +27,4 @@ public class LevelData{
     public Vector3 EntryArray; // Vector3(Obergrenze, Untergrenze, Distanz Zum Linken Rand)
     public Vector3 ExitArray; // Vector3(Obergrenze, Untergrenze, Distanz Zum Rechten Rand)
 }
+*/

@@ -8,7 +8,8 @@ namespace Assets.Scripts
 {
     public static class Defines
     {
-        public const string c_GameDataFile = "Release/GameData.xml";
+        //public const string c_GameDataFile = "Release/GameData.xml";
+        public const string c_GameDataFile = "Assets/txt/GameData.xml";
 
         public const string c_LvlAssets = "LvlFiles/";
         public const string c_ColliderFolder = "LevelCollider";

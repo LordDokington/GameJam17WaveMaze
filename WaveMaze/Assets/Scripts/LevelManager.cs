@@ -23,11 +23,13 @@ namespace WaveMaze{
         private Sprite m_TransitionCollider;
         public Sprite TransitionCollider { get { return m_TransitionCollider; } }
 
+        /*
         public LevelData CurrentLevelData{
             get{
                 return m_LevelList.Find(x => x.m_LevelNumber == m_CurrentLevel).m_LevelData;
             }
         }
+        */
 
         // Use this for initialization
         void Start() {

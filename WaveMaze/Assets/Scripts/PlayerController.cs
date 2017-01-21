@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 	public Material material;
 
-	LevelData CurrentLevelData;
+	//LevelData CurrentLevelData;
 
 	public float Influence { get { return m_influence; } }
 	public float Penumbra { get { return m_penumbra; } }
