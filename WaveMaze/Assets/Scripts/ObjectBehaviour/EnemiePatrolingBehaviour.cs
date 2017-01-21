@@ -42,5 +42,11 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
         if (Vector3.Distance(transform.position, Points[nextIndex].position) <= 0f)
             gotoNextPoint();
     }
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.gameObject.tag == "Player")
+			Destroy(other.gameObject);
+	}
 }
 
