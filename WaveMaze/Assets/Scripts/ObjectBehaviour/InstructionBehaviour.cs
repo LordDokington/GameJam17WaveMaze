@@ -26,6 +26,15 @@ public class InstructionBehaviour : MonoBehaviour
     private float _timeShowTextCurrent;
     private bool _isSkipTextShown;
 
+	private GameObject player;
+	private GameObject mainCamera;
+
+	void Awake()
+	{
+		player = GameObject.FindGameObjectWithTag ("Player");
+		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
+	}
+
     // Use this for initialization
     void Start()
     {
@@ -33,7 +42,20 @@ public class InstructionBehaviour : MonoBehaviour
         _timeBetweenTextCurrent = _timeBetweenTextMax;
         _fadingTimeCurrent = _fadingTimeMax;        
         _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-    }
+		Show();
+	}
+
+	void Show()
+	{
+		player.SetActive (false);
+		mainCamera.GetComponent<WaveMaze.DarknessEffect> ().enabled = false;
+	}
+
+	void Hide()
+	{
+		player.SetActive (true);
+		mainCamera.GetComponent<WaveMaze.DarknessEffect> ().enabled = true;
+	}
 
     // Update is called once per frame
     void Update()
@@ -121,6 +143,7 @@ public class InstructionBehaviour : MonoBehaviour
 
     private void endInstructions()
     {
+		Hide();
         Destroy(gameObject);
     }
 }

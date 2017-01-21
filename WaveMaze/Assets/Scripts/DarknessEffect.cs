@@ -19,7 +19,7 @@ public class DarknessEffect : MonoBehaviour {
 	void Start () 
 	{
 		material.SetFloat ("_Radius", 0);
-		material.SetFloat ("_Penumbra", penumbra);	
+		material.SetFloat ("_Penumbra", defaultPenumbra);	
 	}
 	
 	// Update is called once per frame
@@ -81,6 +81,7 @@ public class DarknessEffect : MonoBehaviour {
 
 	public void ReleaseFlash(float charge)
 	{
+		material.SetFloat ( "_ShakeX", 0f );
 		m_chargeDecelerator = charge;
 		if( m_brightnessCycleTime > Mathf.PI ) m_brightnessCycleTime = 0f;
 	}
