@@ -4,7 +4,8 @@ using Assets.Scripts;
 
 [System.Serializable]
 public class GameData{
-	public List<string> m_InstructionList; 
+	public List<string> m_InstructionList;
+    public string Instruction1; 
 	public List<LevelData> m_LevelDataList;
 
 	public GameData()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 using Assets.Scripts.Manager;
+using System.IO;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
@@ -35,8 +36,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     void Start()
     {
 #if UNITY_EDITOR
+        
         GameDataGenerator aGameDataGenerator = new GameDataGenerator();
-        aGameDataGenerator.Save();
+        aGameDataGenerator.Save( !File.Exists(Defines.c_GameDataFile) );
 #endif
         FinishPreloading = false;
 

@@ -6,16 +6,16 @@ using UnityEngine.UI;
 namespace WaveMaze{
 	public class LevelManager : MonoBehaviour {
 		List<LevelHandler> m_LevelList;
-        Canvas m_Canvas;
         GameObject m_CurrentLevelGo;
-        Image m_CurrentLevelGoundTexture;
+        SpriteRenderer m_SpriteRenderer;
+        Sprite m_CurrentLevelGoundTexture;
         int m_CurrentLevel = 0;
         
 		// Use this for initialization
 		void Start() {
-            m_Canvas = this.gameObject.AddComponent<Canvas>();
-            m_CurrentLevelGo = new GameObject();
-            m_CurrentLevelGoundTexture = m_CurrentLevelGo.AddComponent<Image>();
+            
+            m_CurrentLevelGo = new GameObject("m_CurrentLevelGo");
+            m_SpriteRenderer = m_CurrentLevelGo.AddComponent<SpriteRenderer>();
  
             addLevel(1);
             GameManager.Instance.FinishPreloading = true;
@@ -42,14 +42,15 @@ namespace WaveMaze{
             StartTransition();
             m_CurrentLevel = TheLevel;
             Texture2D aTexture = m_LevelList.Find(x => x.m_LevelNumber == TheLevel).LevelGround;
-            Sprite aSprite = Sprite.Create(
+            Debug.Log("Width: " +  aTexture.height.ToString() + "Width: " + aTexture.width.ToString());
+            Sprite m_CurrentLevelGoundTexture = Sprite.Create(
                  aTexture,
                  new Rect(0, 0, aTexture.width, aTexture.height), 
-                 new Vector2(0.5f, 0.0f),
+                 new Vector2(0.5f, 0.5f),
                  1.0f
                  );
 
-            m_CurrentLevelGoundTexture.sprite = aSprite;
+            m_SpriteRenderer.sprite = m_CurrentLevelGoundTexture;
         }
 
         void StartTransition() {
