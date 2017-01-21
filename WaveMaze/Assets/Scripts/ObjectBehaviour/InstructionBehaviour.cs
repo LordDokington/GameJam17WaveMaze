@@ -35,6 +35,7 @@ public class InstructionBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GameManager.Instance.FindPlayer();
         GameManager.Instance.SetInstrObj = gameObject;
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
@@ -46,14 +47,16 @@ public class InstructionBehaviour : MonoBehaviour
 	void HideOther()
 	{
 		GameManager.Instance.Player1.SetActive (false);
-        GameManager.Instance.Player2.SetActive(false);
+        if(GameManager.Instance.Player2 != null)
+            GameManager.Instance.Player2.SetActive(false);
         GameManager.Instance.ShouldCameraDarknessBeOn(false);
 	}
 
 	void ShowOther()
 	{
         GameManager.Instance.Player1.SetActive(true);
-        GameManager.Instance.Player2.SetActive(true);
+        if (GameManager.Instance.Player2 != null)
+            GameManager.Instance.Player2.SetActive(true);
         GameManager.Instance.ShouldCameraDarknessBeOn(true);
     }
 
