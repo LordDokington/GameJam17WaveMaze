@@ -71,7 +71,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if (SpawnPlayerAfterGameInit) {
             Player1.SetActive(true);
-            Player1.GetComponent<PlayerController>().spornPlayerOne();
+            Player1.GetComponent<PlayerController>().spawnPlayerOne();
             SpawnPlayerAfterGameInit = false;
         }
     }

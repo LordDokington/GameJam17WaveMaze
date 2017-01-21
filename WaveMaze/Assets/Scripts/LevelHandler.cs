@@ -61,6 +61,7 @@ namespace WaveMaze{
 		void load(){
 			LoadLevelGround();
 			LoadLevelCollider();
+			return;
             if (m_LevelData.HasEntry) {
                 LoadEntryGround();
                 LoadEntryCollider();
