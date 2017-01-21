@@ -43,9 +43,9 @@ namespace WaveMaze{
 		
 		// Update is called once per frame
 		void Update(){
-			if (Input.GetKeyUp (KeyCode.L)) 
+			if (Input.GetKeyUp(KeyCode.L)) 
 			{
-				StartLevel (2);
+				StartLevel(2);
 			}
 				
 		}
@@ -66,7 +66,6 @@ namespace WaveMaze{
         public void StartLevel(int TheLevel) 
 		{
             StartTransition();
-			return;
 			m_CurrentLevel = TheLevel;
             m_CurrentLevelGoundTexture = m_LevelList.Find(x => x.m_LevelNumber == TheLevel).LevelGround;
             
