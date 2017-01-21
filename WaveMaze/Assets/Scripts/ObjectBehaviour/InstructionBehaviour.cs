@@ -22,7 +22,7 @@ public class InstructionBehaviour : MonoBehaviour
     private float _timeBetweenTextCurrent;
     private float _fadingTimeMax = 1f;
     private float _fadingTimeCurrent;
-    private float _timeShowTextLetter = 1f;
+    private float _timeShowTextLetter = 0.1f;
     private float _timeShowTextCurrent;
     private bool _isSkipTextShown;
 
@@ -38,7 +38,6 @@ public class InstructionBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(TextStoryLine.color.a);
         switch(_currentState)
         {
             case InstructionState.Idle:
@@ -79,6 +78,10 @@ public class InstructionBehaviour : MonoBehaviour
                 TextStoryLine.text = _story.FirstOrDefault();
                 _story.RemoveAt(0);
             }
+            else
+            {
+                //TODO: end instructions endInstructions();
+            }
         }
     }
 
@@ -91,7 +94,7 @@ public class InstructionBehaviour : MonoBehaviour
         {
             _currentState = InstructionState.Show;
             _fadingTimeCurrent = _fadingTimeMax;
-            _timeShowTextCurrent = _fadingTimeMax;
+            _timeShowTextCurrent = TextStoryLine.text.Length * _timeShowTextLetter;
         }
     }
 
@@ -113,7 +116,6 @@ public class InstructionBehaviour : MonoBehaviour
         {
             _currentState = InstructionState.Idle;
             _fadingTimeCurrent = _fadingTimeMax;
-            GameManager.Instance.FinishPreloading = true;
         }
     }
 
