@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using System.Linq;
 
 namespace WaveMaze{
+	
 	public class LevelManager : MonoBehaviour {
+		
 		List<LevelHandler> m_LevelList;
         GameObject m_CurrentLevelGo;
         SpriteRenderer m_SpriteRenderer;
@@ -28,13 +30,18 @@ namespace WaveMaze{
             m_SpriteRenderer = m_CurrentLevelGo.AddComponent<SpriteRenderer>();
             m_SpriteRenderer.sortingLayerName = "LevelLayer";
             addLevel(1);
+			addLevel(2);
             GameManager.Instance.FinishPreloading = true;
             StartLevel(1);
         }
 		
 		// Update is called once per frame
 		void Update(){
-			
+			if (Input.GetKeyUp (KeyCode.L)) 
+			{
+				StartLevel (2);
+			}
+				
 		}
 
 		void addLevel(int LevelCount)
@@ -53,7 +60,8 @@ namespace WaveMaze{
         public void StartLevel(int TheLevel) 
 		{
             StartTransition();
-            m_CurrentLevel = TheLevel;
+			return;
+			m_CurrentLevel = TheLevel;
             m_CurrentLevelGoundTexture = m_LevelList.Find(x => x.m_LevelNumber == TheLevel).LevelGround;
             
             Debug.Log("Width: " + m_CurrentLevelGoundTexture.rect.height.ToString() + "Width: " + m_CurrentLevelGoundTexture.rect.width.ToString());
