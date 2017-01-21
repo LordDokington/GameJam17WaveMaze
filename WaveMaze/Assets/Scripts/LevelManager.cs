@@ -16,7 +16,7 @@ namespace WaveMaze{
             
             m_CurrentLevelGo = new GameObject("m_CurrentLevelGo");
             m_SpriteRenderer = m_CurrentLevelGo.AddComponent<SpriteRenderer>();
- 
+            m_SpriteRenderer.sortingLayerName = "LevelLayer";
             addLevel(1);
             GameManager.Instance.FinishPreloading = true;
             StartLeve(1);
@@ -41,16 +41,11 @@ namespace WaveMaze{
         public void StartLeve(int TheLevel) {
             StartTransition();
             m_CurrentLevel = TheLevel;
-            Texture2D aTexture = m_LevelList.Find(x => x.m_LevelNumber == TheLevel).LevelGround;
-            Debug.Log("Width: " +  aTexture.height.ToString() + "Width: " + aTexture.width.ToString());
-            Sprite m_CurrentLevelGoundTexture = Sprite.Create(
-                 aTexture,
-                 new Rect(0, 0, aTexture.width, aTexture.height), 
-                 new Vector2(0.5f, 0.5f),
-                 1.0f
-                 );
-
+            m_CurrentLevelGoundTexture = m_LevelList.Find(x => x.m_LevelNumber == TheLevel).LevelGround;
+            
+            Debug.Log("Width: " + m_CurrentLevelGoundTexture.rect.height.ToString() + "Width: " + m_CurrentLevelGoundTexture.rect.width.ToString());
             m_SpriteRenderer.sprite = m_CurrentLevelGoundTexture;
+            m_SpriteRenderer.material = new Material( Shader.Find("Diffuse") );
         }
 
         void StartTransition() {
