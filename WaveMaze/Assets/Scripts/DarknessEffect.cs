@@ -110,13 +110,13 @@ public class DarknessEffect : MonoBehaviour {
 
 	public float minCharge = 0.1f;
 
-	public float defaultPenumbra = 0.1f;
+	public float defaultPenumbra = 0.15f;
 	public float minPenumbra = 0.07f;
 
-	public float expandSpeed = 10f;
+	public float expandSpeed = 20f;
 	public float shrinkSpeed = 0.5f;
 
-	public float shakeStrength = 0.02f;
+	public float shakeStrength = 0.01f;
 }
 
 }

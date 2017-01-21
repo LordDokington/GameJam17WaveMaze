@@ -28,14 +28,16 @@ public class PlayerController : MonoBehaviour
             float x = Input.GetAxis("HorizontalP2") * speed * Time.deltaTime;
             float y = Input.GetAxis("VerticalP2") * speed * Time.deltaTime;
 
-            transform.Translate(new Vector3(x, y, 0));
+            transform.Translate( new Vector3(x, y, 0) );
         }
 	}
 
-    public void spornPlayerOne()
+    public void spawnPlayerOne()
     {
         CurrentLevelData = GameObject.Find("LevelManager").GetComponent<LevelManager>().CurrentLevelData;
         Vector2 aVector = CurrentLevelData.SpornPlayer1;
         this.transform.position = new Vector3( aVector.x, aVector.y, 0);
     }
+
+	///////////////////////
 }

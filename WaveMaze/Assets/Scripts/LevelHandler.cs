@@ -61,6 +61,7 @@ namespace WaveMaze{
 		void load(){
 			LoadLevelGround();
 			LoadLevelCollider();
+			return;
             if (m_LevelData.HasEntry) {
                 LoadEntryGround();
                 LoadEntryCollider();
@@ -95,7 +96,7 @@ namespace WaveMaze{
 
 		void LoadLevelCollider(){
 #if UNITY_EDITOR
-			string aPath = "LevelCollider/LVL1";//ColliderFolder + LevelString;
+			string aPath = ColliderFolder + LevelString;
 #else
 			string aPath = ColliderFolder + LevelString;
 #endif
