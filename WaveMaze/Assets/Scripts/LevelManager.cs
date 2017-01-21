@@ -56,7 +56,7 @@ namespace WaveMaze{
             m_CurrentLevel = TheLevel;
             m_CurrentLevelGoundTexture = m_LevelList.Find(x => x.m_LevelNumber == TheLevel).LevelGround;
             
-            Debug.Log("Width: " + m_CurrentLevelGoundTexture.rect.height.ToString() + "Width: " + m_CurrentLevelGoundTexture.rect.width.ToString());
+            Debug.Log("Heigth: " + m_CurrentLevelGoundTexture.rect.height.ToString() + "Width: " + m_CurrentLevelGoundTexture.rect.width.ToString());
 
 			m_SpriteRenderer.sprite = m_CurrentLevelGoundTexture;
         }
