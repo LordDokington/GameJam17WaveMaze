@@ -25,34 +25,35 @@ public class DarknessEffect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			ReleaseFlash (m_charge);
+		}
+
 		if (m_brightnessCycleTime <= Mathf.PI) 
 		{
 			if (m_brightnessCycleTime >= Mathf.PI / 2) {
-				m_brightnessCycleTime += Time.deltaTime * 0.2f;
+				m_brightnessCycleTime += Time.deltaTime * 0.7f;
 			}
-			else 
+			else
 			{
 				m_brightnessCycleTime += Time.deltaTime * m_brightnessCycleSpeed;
 			}
-			float scale = Mathf.Sin (m_brightnessCycleTime) * m_charge;
+			float scale = Mathf.Sin (m_brightnessCycleTime) * m_chargeDecelerator;
 
 			material.SetFloat ("_Radius", scale);
 		} 
-
-		if (Input.GetKey (KeyCode.Space)) 
+		else //if(m_brightnessCycleTime > Mathf.PI)
 		{
-			ChargeFlash ();	
-			m_charge += 0.3f * Time.deltaTime;
-		}
-		else 
-		{
-			RecoverFlash ();
-			m_charge -= 0.6f * Time.deltaTime; 
-			m_charge = Mathf.Max (0.1f, m_charge);
-		}
-
-		if (Input.GetKeyUp (KeyCode.Space)) {
-			ReleaseFlash ();
+			if (Input.GetKey (KeyCode.Space)) 
+			{
+				ChargeFlash ();	
+				m_charge += 0.3f * Time.deltaTime;
+			} 
+			else 
+			{
+				RecoverFlash ();
+				m_charge = 0.1f;
+			}
 		}
 	}
 
@@ -78,8 +79,9 @@ public class DarknessEffect : MonoBehaviour {
 		material.SetFloat ("_Penumbra", penumbra);
 	}
 
-	public void ReleaseFlash()
+	public void ReleaseFlash(float charge)
 	{
+		m_chargeDecelerator = charge;
 		if( m_brightnessCycleTime > Mathf.PI ) m_brightnessCycleTime = 0f;
 	}
 
@@ -88,6 +90,7 @@ public class DarknessEffect : MonoBehaviour {
 	float m_brightnessCycleSpeed = 8f;
 
 	float m_charge = 0.1f;
+	float m_chargeDecelerator;
 
 	const float defaultPenumbra = 0.3f;
 }
