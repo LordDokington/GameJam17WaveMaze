@@ -63,8 +63,8 @@ public class EnemieChasingBehaviour : MonoBehaviour
     {
         walkingTimeLeft = timeToToWalk;
         //CircleCollider2D
-        if (Points.Length == 0)
-            return;
+        //if (Points.Length == 0)
+        //    return;
 
         _movePoints.RemoveAt(0);
     }
