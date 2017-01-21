@@ -74,17 +74,6 @@ public class InstructionBehaviour : MonoBehaviour
                 fadingOut();
                 break;
         }
-
-        if (GameManager.Instance.FinishPreloading)
-        {
-            if (!_isSkipTextShown)
-            {
-                _isSkipTextShown = true;
-                SkipText.SetActive(true);
-            }
-            if(_isSkipTextShown && Input.GetKeyUp(KeyCode.Space))
-                endInstructions();
-        }
     }
 
     private void idling()
@@ -101,7 +90,7 @@ public class InstructionBehaviour : MonoBehaviour
             }
             else
             {
-                //TODO: end instructions endInstructions();
+                endInstructions();
             }
         }
     }
@@ -151,12 +140,12 @@ public class InstructionBehaviour : MonoBehaviour
         if(IsOutro)
         {
             _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+            Background.sprite = Resources.Load<Sprite>("Sprites/outro_bg");
         }
         else
         {
             _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+            Background.sprite = Resources.Load<Sprite>("Sprites/intro_bg");
         }
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
