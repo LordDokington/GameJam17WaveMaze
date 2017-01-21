@@ -22,6 +22,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     private GameObject _player2;
     private GameData m_GameData;
 
+    bool SpawnPlayerAfterGameInit = false;
+
     public GameData GetGameData
     {
         get
@@ -61,7 +63,11 @@ public class GameManager : SingletonBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-
+        if (SpawnPlayerAfterGameInit) {
+            Player1.SetActive(true);
+            Player1.GetComponent<PlayerController>().spornPlayerOne();
+            SpawnPlayerAfterGameInit = false;
+        }
     }
 
 

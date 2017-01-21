@@ -10,7 +10,7 @@ namespace WaveMaze{
         GameObject m_CurrentLevelGo;
         SpriteRenderer m_SpriteRenderer;
         Sprite m_CurrentLevelGoundTexture;
-        int m_CurrentLevel = 0;
+        int m_CurrentLevel = 1;
 
         Color c_EntryColor = Color.red;
         Color c_ExitColor = Color.green;
