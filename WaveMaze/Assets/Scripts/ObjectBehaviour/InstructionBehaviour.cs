@@ -37,11 +37,7 @@ public class InstructionBehaviour : MonoBehaviour
     {
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetInstrObj = gameObject;
-        _currentState = InstructionState.Idle;
-        _timeBetweenTextCurrent = _timeBetweenTextMax;
-        _fadingTimeCurrent = _fadingTimeMax;        
-        _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-		HideOther();
+        Init(false);
 	}
 
 	void HideOther()
@@ -155,12 +151,12 @@ public class InstructionBehaviour : MonoBehaviour
         if(IsOutro)
         {
             _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-            Background.sprite = Resources.Load<Sprite>("Assets/Resources/Textures/Turner.png");
+            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
         }
         else
         {
             _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-            Background.sprite = Resources.Load<Sprite>("");
+            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
         }
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
