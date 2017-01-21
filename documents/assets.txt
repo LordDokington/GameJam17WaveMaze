@@ -1,0 +1,14 @@
+Character
+- Spieler
+- Gegner 1: Bewegt sich von Position zu Position; Rauchwolke wird ausgestoßen
+- Gegner 2: verfolgt Spieler (ist schneller, erreicht ihn); Rauchwolke wird ausgestoßen
+- Gegner-Licht: sobald der Spieler in seiner Reichweite ist, bewegt er sich langsam von seiner Start zur Zielposition
+
+
+Hintergründe / Lvl-Elemente
+- Hintergrund / den Weg versperrende Steine (Kollision)
+- Weg zwischen den Leveln
+- Brechender Boden (sobald zwei Spieler die Area betreten - bei einem Spieler bricht er nicht)
+- am Anfang des Levels sind immer zwei Spieler aktiv, auch wenn einer der Spieler im Level zuvor gestorben ist
+- Schlucht mit Seilen die darüber führen. Berührt der Spieler ein Seil, wird er automatisch bis zum Ende getragen.
+  Endet das Seil über der Schlucht zuende, stirbt der Spieler.
