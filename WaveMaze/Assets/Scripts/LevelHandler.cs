@@ -1,26 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+
 namespace WaveMaze{
-	public class LevelHandler{
-		Texture2D m_LevelGround;
-		Texture2D m_LevelCollider;
-		string m_LevelName;
-		int m_LevelNumber = 1;
+	public class LevelHandler : IEquatable<LevelHandler>
+    {
+        private Texture2D m_LevelGround;
+        public Texture2D LevelGround { get { return m_LevelGround; } }
+        private Texture2D m_LevelCollider;
+        public Texture2D LevelCollider { get { return m_LevelCollider; } }
+        string m_LevelName;
+		public readonly int m_LevelNumber = 1;
 
 		const string c_LvlAssets = "Assets/LvlFiles/";  
 		const string c_ColliderFolder = "LevelCollider";
 		const string c_GroundFolder = "LevelGround";
 		const string c_IniFolder = "LevelINI";
 
-		const string c_LEVEL = "LVL";
+		const string c_LEVEL = "LVL##.png";
 
         string LevelString
         {
 			get{ 
-				return c_LEVEL + m_LevelNumber.ToString();
+				return c_LEVEL.Replace("##", m_LevelNumber.ToString() ) ;
 			}
 		}
 
@@ -94,5 +99,11 @@ namespace WaveMaze{
 			 }
 			 return tex;
 		 }
-	}
+
+        public bool Equals(LevelHandler other)
+        {
+            if (other == null) return false;
+            return (this.m_LevelNumber.Equals(other.m_LevelNumber));
+        }
+    }
 }
