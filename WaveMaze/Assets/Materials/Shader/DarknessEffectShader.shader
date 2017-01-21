@@ -7,8 +7,12 @@
 		_Radius ("Radius", Range(0, 1)) = 0.2
 		_Penumbra ("Penumbra", Range(0, 1)) = 0.3
 
+		_DarknessColor("DarknessColor", Color) = (0, 0, 0, 1)
+
 		_ShakeX ("ShakeX", Float) = 0.0
 		_ShakeY ("ShakeY", Float) = 0.0
+
+		_PlayerPos ("PlayerPos", Vector) = (0.5, 0.5, 0, 0)
 	}
 	SubShader
 	{
@@ -51,13 +55,17 @@
 			
 			sampler2D _MainTex;
 
+			fixed4 _DarknessColor;
+
+			fixed4 _PlayerPos;
+
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
 
 				float aspect = 16.0 / 9.0;
 				// relative center of object (with quad with uv textures going from 0 to 1 this is the center)
-				float2 center = float2(0.5 * aspect + _ShakeX, 0.5 + _ShakeY);
+				float2 center = float2(_PlayerPos.x - (1 - aspect) / 2  + _ShakeX, _PlayerPos.y + _ShakeY);
 
 				// distance to center is used to check if we are on circle
 				float2 transformedUV = float2( i.uv.x * aspect, i.uv.y );
@@ -70,7 +78,7 @@
 				float tEnd = smoothstep( 0, 1, endRelative );
 
 				// sample the texture
-				col = lerp(col, fixed4(0,0,0,1), tEnd);
+				col = lerp(col, _DarknessColor, tEnd * _DarknessColor.a);
 
 				return col;
 
