@@ -8,23 +8,7 @@ public class CameraFollow : MonoBehaviour
 {
 	public GameObject target;
 
-	public float interpolationSpeed = 0.14f;
-
-	// Use this for initialization
-	void Start ()
-	{
-		int wallCount = 10;
-		GameObject wallPrefab = Resources.Load ("Prefabs/Wall") as GameObject;
-		
-		for (int i = 0; i < wallCount; ++i) 
-		{
-			float randX = Utils.RandRange (-40, 40);
-			float randY = Utils.RandRange (-40, 40);
-
-			GameObject wall = Instantiate ( wallPrefab, new Vector3 (randX, randY, 0), Quaternion.identity );
-			wall.transform.Rotate (0, 0, Random.value * 360);
-		}
-	}
+	private float interpolationSpeed = 0.14f;
 	
 	// Update is called once per frame
 	void Update ()

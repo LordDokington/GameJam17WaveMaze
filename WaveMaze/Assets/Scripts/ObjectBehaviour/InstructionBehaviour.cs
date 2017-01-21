@@ -14,6 +14,7 @@ public class InstructionBehaviour : MonoBehaviour
         FadeOut
     }
 
+    public Image Background;
     public GameObject SkipText;
     public Text TextStoryLine;
     private List<string> _story = new List<string>();
@@ -26,36 +27,34 @@ public class InstructionBehaviour : MonoBehaviour
     private float _timeShowTextCurrent;
     private bool _isSkipTextShown;
 
-	private GameObject player;
-	private GameObject mainCamera;
-
 	void Awake()
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");
-		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
+
 	}
 
     // Use this for initialization
     void Start()
     {
-        _currentState = InstructionState.Idle;
-        _timeBetweenTextCurrent = _timeBetweenTextMax;
-        _fadingTimeCurrent = _fadingTimeMax;        
-        _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-		Show();
+        GameManager.Instance.FindPlayer();
+        GameManager.Instance.SetInstrObj = gameObject;
+        Init(false);
 	}
 
-	void Show()
+	void HideOther()
 	{
-		player.SetActive (false);
-		mainCamera.GetComponent<WaveMaze.DarknessEffect> ().enabled = false;
+		GameManager.Instance.Player1.SetActive (false);
+        if(GameManager.Instance.Player2 != null)
+            GameManager.Instance.Player2.SetActive(false);
+        GameManager.Instance.ShouldCameraDarknessBeOn(false);
 	}
 
-	void Hide()
+	void ShowOther()
 	{
-		player.SetActive (true);
-		mainCamera.GetComponent<WaveMaze.DarknessEffect> ().enabled = true;
-	}
+        GameManager.Instance.Player1.SetActive(true);
+        if (GameManager.Instance.Player2 != null)
+            GameManager.Instance.Player2.SetActive(true);
+        GameManager.Instance.ShouldCameraDarknessBeOn(true);
+    }
 
     // Update is called once per frame
     void Update()
@@ -143,7 +142,25 @@ public class InstructionBehaviour : MonoBehaviour
 
     private void endInstructions()
     {
-		Hide();
-        Destroy(gameObject);
+		ShowOther();
+        gameObject.SetActive(false);
+    }
+
+    public void Init(bool IsOutro)
+    {
+        if(IsOutro)
+        {
+            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
+            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+        }
+        else
+        {
+            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
+            //Background.sprite = Resources.Load<Sprite>("Sprites/Intro.png");
+        }
+        _currentState = InstructionState.Idle;
+        _timeBetweenTextCurrent = _timeBetweenTextMax;
+        _fadingTimeCurrent = _fadingTimeMax;
+        HideOther();
     }
 }

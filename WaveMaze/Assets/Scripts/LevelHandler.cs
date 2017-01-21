@@ -8,7 +8,7 @@ using Assets.Scripts;
 
 
 namespace WaveMaze{
-	public class LevelHandler //: IEquatable<LevelHandler>
+	public class LevelHandler
     {
         private Sprite m_LevelGround;
         public Sprite LevelGround { get { return m_LevelGround; } }
@@ -25,7 +25,7 @@ namespace WaveMaze{
         string m_LevelName;
 		public readonly int m_LevelNumber = 1;
 
-        LevelData m_LevelData;
+        public LevelData m_LevelData;
 
         string LevelString
         {
@@ -59,13 +59,17 @@ namespace WaveMaze{
 
 		// Use this for initialization
 		void load(){
-			LoadLevelName();
 			LoadLevelGround();
 			LoadLevelCollider();
-            LoadEntryGround();
-            LoadEntryCollider();
-            LoadEndGround();
-            LoadEndCollider();
+            if (m_LevelData.HasEntry) {
+                LoadEntryGround();
+                LoadEntryCollider();
+            }
+            if (m_LevelData.HasEnd)
+            {
+                LoadEndGround();
+                LoadEndCollider();
+            }
         }
 		
 		// Update is called once per frame
@@ -73,8 +77,9 @@ namespace WaveMaze{
 			
 		}
 
-        private Sprite LoadTexture(string ThePath) {
-            Texture2D tex = Resources.Load<Texture2D>(GroundFolder + LevelString);
+        private Sprite LoadTexture(string ThePath){
+            Debug.Log(ThePath);
+            Texture2D tex = Resources.Load<Texture2D>(ThePath);
             return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
         }
 
@@ -90,11 +95,13 @@ namespace WaveMaze{
 
 		void LoadLevelCollider(){
 #if UNITY_EDITOR
-            string aPath = ColliderFolder + LevelString;
+			string aPath = ColliderFolder + LevelString;
 #else
 			string aPath = ColliderFolder + LevelString;
 #endif
             m_LevelCollider = LoadTexture(aPath);
+			if (m_LevelCollider == null)
+				Debug.LogWarning ("Oh NOOOO!");
             
         }
 
@@ -139,26 +146,5 @@ namespace WaveMaze{
             m_EndCollider = LoadTexture(aPath);
         }
 
-        void LoadLevelName(){
-			
-		}
-
-	    public static Texture2D LoadPNG(string filePath) {
-			Texture2D tex = null;
-			byte[] fileData;
-
-			if (File.Exists(filePath)){
-			     fileData = File.ReadAllBytes(filePath);
-			     tex = new Texture2D(1920, 1080);
-			     tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
-			 }
-			 return tex;
-		 }
-
-        public bool Equals(LevelHandler other)
-        {
-            if (other == null) return false;
-            return (this.m_LevelNumber.Equals(other.m_LevelNumber));
-        }
     }
 }

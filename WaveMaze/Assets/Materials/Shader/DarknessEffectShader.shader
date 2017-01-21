@@ -64,10 +64,11 @@
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
 
-				float2 iInvY = float2(i.uv.x, 1-i.uv.y);
-				float lightTexel = tex2D(_LightMapTex, iInvY).r;
-
 				float aspect = 16.0 / 9.0;
+
+				_PlayerPos.x = 0.5;
+				_PlayerPos.y = 0.5;
+
 				// relative center of object (with quad with uv textures going from 0 to 1 this is the center)
 				float2 center = float2(_PlayerPos.x - (1 - aspect) / 2  + _ShakeX, _PlayerPos.y + _ShakeY);
 
@@ -81,12 +82,12 @@
 				// use smoothstep to smooth edge
 				float tEnd = smoothstep( 0, 1, endRelative );
 
-				if( r > 0.05f && col.g < 0.4 ) //return float4(1, 0, 0, 1);//lerp(col, _DarknessColor, 0.5f);
+				//if( r > 0.05f && col.g < 0.4 ) //return float4(1, 0, 0, 1);//lerp(col, _DarknessColor, 0.5f);
 				{
-					col = lerp(col, _DarknessColor, _DarknessColor.a);
+					//col = lerp(col, _DarknessColor, _DarknessColor.a);
 				}
 				// sample the texture
-				else 
+				//else 
 				{	
 					col = lerp(col, _DarknessColor, tEnd * _DarknessColor.a);
 				}
