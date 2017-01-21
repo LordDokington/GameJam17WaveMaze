@@ -83,7 +83,7 @@ public class InstructionBehaviour : MonoBehaviour
                 _isSkipTextShown = true;
                 SkipText.SetActive(true);
             }
-            if(_isSkipTextShown && Input.GetKeyDown(KeyCode.Space))
+            if(_isSkipTextShown && Input.GetKeyUp(KeyCode.Space))
                 endInstructions();
         }
     }
