@@ -18,6 +18,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public GameState CurrentState;
     public bool FinishPreloading;
 
+    private GameObject _instructionObject;
     private GameObject _player1;
     private GameObject _player2;
     private GameData m_GameData;
@@ -38,6 +39,11 @@ public class GameManager : SingletonBehaviour<GameManager>
     public GameObject Player2
     {
         get { return _player2; }
+    }
+
+    public GameObject SetInstrObj
+    {
+        set { _instructionObject = value; }
     }
 
     public override void AwakeSingleton()
@@ -75,7 +81,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void StartOutro()
     {
-
+        _instructionObject.SetActive(true);
+        _instructionObject.GetComponent<InstructionBehaviour>().Init(true);
     }
 
     public void ShouldCameraDarknessBeOn(bool state)

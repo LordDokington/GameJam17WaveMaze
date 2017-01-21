@@ -14,6 +14,7 @@ public class InstructionBehaviour : MonoBehaviour
         FadeOut
     }
 
+    public Image Background;
     public GameObject SkipText;
     public Text TextStoryLine;
     private List<string> _story = new List<string>();
@@ -34,21 +35,22 @@ public class InstructionBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GameManager.Instance.SetInstrObj = gameObject;
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
         _fadingTimeCurrent = _fadingTimeMax;        
         _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
-		Show();
+		HideOther();
 	}
 
-	void Show()
+	void HideOther()
 	{
 		GameManager.Instance.Player1.SetActive (false);
         GameManager.Instance.Player2.SetActive(false);
         GameManager.Instance.ShouldCameraDarknessBeOn(false);
 	}
 
-	void Hide()
+	void ShowOther()
 	{
         GameManager.Instance.Player1.SetActive(true);
         GameManager.Instance.Player2.SetActive(true);
@@ -141,7 +143,25 @@ public class InstructionBehaviour : MonoBehaviour
 
     private void endInstructions()
     {
-		Hide();
-        Destroy(gameObject);
+		ShowOther();
+        gameObject.SetActive(false);
+    }
+
+    public void Init(bool IsOutro)
+    {
+        if(IsOutro)
+        {
+            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
+            Background.sprite = Resources.Load<Sprite>("Assets/Resources/Textures/Turner.png");
+        }
+        else
+        {
+            _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
+            Background.sprite = Resources.Load<Sprite>("");
+        }
+        _currentState = InstructionState.Idle;
+        _timeBetweenTextCurrent = _timeBetweenTextMax;
+        _fadingTimeCurrent = _fadingTimeMax;
+        HideOther();
     }
 }
