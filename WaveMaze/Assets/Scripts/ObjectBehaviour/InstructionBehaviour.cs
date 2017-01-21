@@ -17,13 +17,12 @@ public class InstructionBehaviour : MonoBehaviour
     public GameObject SkipText;
     public Text TextStoryLine;
     private List<string> _story = new List<string>();
-    private string _currentText;
     private InstructionState _currentState;
     private float _timeBetweenTextMax = 1f;
     private float _timeBetweenTextCurrent;
     private float _fadingTimeMax = 1f;
     private float _fadingTimeCurrent;
-    private float _timeShowTextLetter = 1f;
+    private float _timeShowTextLetter = 0.1f;
     private float _timeShowTextCurrent;
     private bool _isSkipTextShown;
 
@@ -31,8 +30,9 @@ public class InstructionBehaviour : MonoBehaviour
     void Start()
     {
         _currentState = InstructionState.Idle;
-        //TODO: Read Textfile and insert string
-        _story = ("You are not alone$There is always a light with you").Split('$').ToList();
+        _timeBetweenTextCurrent = _timeBetweenTextMax;
+        _fadingTimeCurrent = _fadingTimeMax;        
+        _story = new List<string> { "You are not alone", "You are not alone", "You are not alone" };//GameManager.Instance.GetGameData.m_InstructionList;
     }
 
     // Update is called once per frame
@@ -75,19 +75,26 @@ public class InstructionBehaviour : MonoBehaviour
             _timeBetweenTextCurrent = _timeBetweenTextMax;
             if (_story.Count > 0)
             {
-                //TextStoryLine.text = _currentText;
+                TextStoryLine.text = _story.FirstOrDefault();
+                _story.RemoveAt(0);
+            }
+            else
+            {
+                //TODO: end instructions endInstructions();
             }
         }
     }
 
     private void fadingIn()
     {
+        TextStoryLine.color = new Color(TextStoryLine.color.r, TextStoryLine.color.g, TextStoryLine.color.b, Mathf.Clamp((1f -_fadingTimeCurrent / _fadingTimeMax), 0f, 1f));
         _fadingTimeCurrent -= Time.deltaTime;
+
         if (_fadingTimeCurrent <= 0f)
         {
             _currentState = InstructionState.Show;
             _fadingTimeCurrent = _fadingTimeMax;
-            _timeShowTextCurrent = _fadingTimeMax;
+            _timeShowTextCurrent = TextStoryLine.text.Length * _timeShowTextLetter;
         }
     }
 
@@ -102,12 +109,13 @@ public class InstructionBehaviour : MonoBehaviour
     }
     private void fadingOut()
     {
+        TextStoryLine.color = new Color(TextStoryLine.color.r, TextStoryLine.color.g, TextStoryLine.color.b, Mathf.Clamp((_fadingTimeCurrent / _fadingTimeMax), 0f, 1f));
+
         _fadingTimeCurrent -= Time.deltaTime;
         if (_fadingTimeCurrent <= 0f)
         {
             _currentState = InstructionState.Idle;
             _fadingTimeCurrent = _fadingTimeMax;
-            GameManager.Instance.FinishPreloading = true;
         }
     }
 
