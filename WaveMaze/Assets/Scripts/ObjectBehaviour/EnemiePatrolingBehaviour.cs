@@ -22,6 +22,7 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
         doNothing = true;
         if(ShouldStopAtEnd)
         {
+
             //TODO: light circle
         }
     }
