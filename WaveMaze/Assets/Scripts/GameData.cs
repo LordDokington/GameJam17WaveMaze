@@ -16,6 +16,10 @@ public class GameData{
 
 [System.Serializable]
 public class LevelData{
-	public Color m_EntryColor;
+    public int m_LevelNumber;
     public int m_EnemyCount;
+    public bool HasEntry;
+    public bool HasEnd;
+    public Vector2 SpornPlayer1;
+    public Vector2 SpornPlayer2;
 }
