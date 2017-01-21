@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class EnemyLightReaction : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	public Material material;
+
+	void OnRenderImage(RenderTexture source, RenderTexture destination)
+	{
+		Graphics.Blit(source, destination, material);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void Update()
+	{
+		//mater	
 	}
 }
