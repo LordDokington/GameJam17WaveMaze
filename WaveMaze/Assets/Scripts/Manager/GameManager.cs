@@ -34,12 +34,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public GameObject Player1
     {
-        get { return _player1; }
+        get { return _player1 == null ? null: _player1; }
     }
 
     public GameObject Player2
     {
-        get { return _player2; }
+        get { return _player2 == null ? null : _player2; }
     }
 
     public override void AwakeSingleton()
