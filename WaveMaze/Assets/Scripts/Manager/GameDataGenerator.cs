@@ -50,7 +50,9 @@ namespace Assets.Scripts.Manager
             aLevel1.HasEntry = false;
             aLevel1.HasEnd = false;
             aLevel1.SpornPlayer1 = new Vector2(100,100);
-            aLevel1.SpornPlayer2 = new Vector2(100, 100);
+            aLevel1.SpornPlayer2 = new Vector2(100,100);
+            aLevel1.EntryArray = new Vector3(0,0,0);
+            aLevel1.ExitArray = new Vector3(10,300,10);
             m_GameData.m_LevelDataList.Add(aLevel1);
         }
 
@@ -63,6 +65,8 @@ namespace Assets.Scripts.Manager
             aLevel2.HasEnd = false;
             aLevel2.SpornPlayer1 = new Vector2(100, 100);
             aLevel2.SpornPlayer2 = new Vector2(100, 100);
+            aLevel2.EntryArray = new Vector3(10,300,10);
+            aLevel2.ExitArray = new Vector3(10,300,10);
             m_GameData.m_LevelDataList.Add(aLevel2);
         }
     }
