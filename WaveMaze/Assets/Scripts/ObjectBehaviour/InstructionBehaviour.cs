@@ -26,13 +26,9 @@ public class InstructionBehaviour : MonoBehaviour
     private float _timeShowTextCurrent;
     private bool _isSkipTextShown;
 
-	private GameObject player;
-	private GameObject mainCamera;
-
 	void Awake()
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");
-		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
+
 	}
 
     // Use this for initialization
@@ -47,15 +43,17 @@ public class InstructionBehaviour : MonoBehaviour
 
 	void Show()
 	{
-		player.SetActive (false);
-		mainCamera.GetComponent<WaveMaze.DarknessEffect> ().enabled = false;
+		GameManager.Instance.Player1.SetActive (false);
+        GameManager.Instance.Player2.SetActive(false);
+        GameManager.Instance.ShouldCameraDarknessBeOn(false);
 	}
 
 	void Hide()
 	{
-		player.SetActive (true);
-		mainCamera.GetComponent<WaveMaze.DarknessEffect> ().enabled = true;
-	}
+        GameManager.Instance.Player1.SetActive(true);
+        GameManager.Instance.Player2.SetActive(true);
+        GameManager.Instance.ShouldCameraDarknessBeOn(true);
+    }
 
     // Update is called once per frame
     void Update()
