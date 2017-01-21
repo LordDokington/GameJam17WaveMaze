@@ -22,4 +22,6 @@ public class LevelData{
     public bool HasEnd;
     public Vector2 SpornPlayer1;
     public Vector2 SpornPlayer2;
+    public Vector3 EntryArray; // Vector3(Obergrenze, Untergrenze, Distanz Zum Linken Rand)
+    public Vector3 ExitArray; // Vector3(Obergrenze, Untergrenze, Distanz Zum Rechten Rand)
 }
