@@ -1,14 +1,18 @@
 fileFormatVersion: 2
-guid: 93c9354a0bce318489493cc1296b9c54
-timeCreated: 1485084712
+guid: cbf5276632500ee43903ecdd2e515195
+timeCreated: 1485084988
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: animChar_01_load_0
-    21300002: animChar_01_load_1
-    21300004: animChar_01_load_2
-    21300006: animChar_01_load_3
-    21300008: animChar_01_load_4
+    21300000: animChar_idle_mainMenu_0
+    21300002: animChar_idle_mainMenu_1
+    21300004: animChar_idle_mainMenu_2
+    21300006: animChar_idle_mainMenu_3
+    21300008: animChar_idle_mainMenu_4
+    21300010: animChar_idle_mainMenu_5
+    21300012: animChar_idle_mainMenu_6
+    21300014: animChar_idle_mainMenu_7
+    21300016: animChar_idle_mainMenu_8
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -75,65 +79,117 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: animChar_01_load_0
+      name: animChar_idle_mainMenu_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 75
-        height: 75
+        width: 315
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: animChar_01_load_1
+      name: animChar_idle_mainMenu_1
       rect:
         serializedVersion: 2
-        x: 75
+        x: 315
         y: 0
-        width: 75
-        height: 75
+        width: 315
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: animChar_01_load_2
+      name: animChar_idle_mainMenu_2
       rect:
         serializedVersion: 2
-        x: 150
+        x: 630
         y: 0
-        width: 75
-        height: 75
+        width: 315
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: animChar_01_load_3
+      name: animChar_idle_mainMenu_3
       rect:
         serializedVersion: 2
-        x: 225
+        x: 945
         y: 0
-        width: 75
-        height: 75
+        width: 315
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: animChar_01_load_4
+      name: animChar_idle_mainMenu_4
       rect:
         serializedVersion: 2
-        x: 300
+        x: 1260
         y: 0
-        width: 75
-        height: 75
+        width: 315
+        height: 360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: animChar_idle_mainMenu_5
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 0
+        width: 315
+        height: 360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: animChar_idle_mainMenu_6
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 0
+        width: 315
+        height: 360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: animChar_idle_mainMenu_7
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 0
+        width: 315
+        height: 360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: animChar_idle_mainMenu_8
+      rect:
+        serializedVersion: 2
+        x: 2520
+        y: 0
+        width: 315
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

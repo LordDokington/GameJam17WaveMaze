@@ -22,7 +22,7 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
     {
         walkingTimeLeft = timeToToWalk;
         doNothing = true;
-        if(ShouldStopAtEnd)
+        if (ShouldStopAtEnd)
         {
             darknessScript = GameObject.FindWithTag("MainCamera").GetComponent<DarknessEffect>();
             darknessScript.EnemyGlowRadius = 0.2f;
@@ -46,7 +46,7 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
                 doNothing = true;
         }
         else
-            ++nextIndex;        
+            ++nextIndex;
     }
 
 
@@ -71,10 +71,12 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
         }
     }
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if(other.gameObject.tag == "Player")
-			Destroy(other.gameObject);
-	}
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == GameManager.Instance.Player1.name)
+            GameManager.Instance.KillPlayer(true);
+        if (other.gameObject.name == GameManager.Instance.Player2.name)
+            GameManager.Instance.KillPlayer(false);
+    }
 }
 
