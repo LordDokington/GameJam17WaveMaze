@@ -16,6 +16,7 @@ public class InstructionBehaviour : MonoBehaviour
 
     public Image Background;
     public Text TextStoryLine;
+    public AudioSource Audiosrc;
     private List<string> _story = new List<string>();
     private InstructionState _currentState;
     private float _timeBetweenTextMax = 1f;
@@ -134,7 +135,9 @@ public class InstructionBehaviour : MonoBehaviour
 
     private void endInstructions()
     {
-		ShowOther();
+        Audiosrc.Stop();
+        GameManager.Instance.StartBGM();
+        ShowOther();
         gameObject.SetActive(false);
     }
 
@@ -151,6 +154,7 @@ public class InstructionBehaviour : MonoBehaviour
             Background.sprite = Resources.Load<Sprite>("Sprites/intro_bg");
         }
 
+        Audiosrc.Play();
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
         _fadingTimeCurrent = _fadingTimeMax;
