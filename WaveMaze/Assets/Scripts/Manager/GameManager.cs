@@ -23,6 +23,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     private GameObject _player1;
     private GameObject _player2;
     private GameData m_GameData;
+    private int _levelNumber;
+    private GameObject[] _spawnPoints;
 
     bool SpawnPlayerAfterGameInit = false;
 
@@ -49,6 +51,11 @@ public class GameManager : SingletonBehaviour<GameManager>
         set { _instructionObject = value; }
     }
 
+    public int CurrentLevel
+    {
+        get { return _levelNumber; }
+    }
+
     public override void AwakeSingleton()
     {
         DontDestroyOnLoad(gameObject);
@@ -63,6 +70,8 @@ public class GameManager : SingletonBehaviour<GameManager>
         aGameDataGenerator.Save( !File.Exists(Defines.c_GameDataFile) );
 #endif
         FinishPreloading = true;
+        _levelNumber = 1;
+        _spawnPoints = new GameObject[100];
 
         m_GameData = GameDataGenerator.Load();
     }
@@ -123,7 +132,20 @@ public class GameManager : SingletonBehaviour<GameManager>
 
         if(!_player1.activeSelf && !_player1.activeSelf)
         {
-            //TODO: Respawn
+            _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+            _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+            _player1.SetActive(true);
+            _player2.SetActive(true);
         }
+    }
+
+    public void IncreaseLevelNumber()
+    {
+        ++_levelNumber;
+    }
+
+    public void SearchSpawnPoints()
+    {
+        _spawnPoints = null;
     }
 }
