@@ -141,6 +141,7 @@ public class InstructionBehaviour : MonoBehaviour
         if (!_endGameAfterText)
         {
             GameManager.Instance.StartBGM();
+            GameManager.Instance.SearchSpawnPoints();
             ShowOther();
             gameObject.SetActive(false);
         }
