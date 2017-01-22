@@ -100,7 +100,7 @@ public class InstructionBehaviour : MonoBehaviour
             }
             else
             {
-               // endInstructions();
+               endInstructions();
             }
         }
     }
