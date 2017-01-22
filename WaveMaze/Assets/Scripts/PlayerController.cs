@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
 
 	public float speed = 15f;
 
-	public float Influence { get { return m_influence * 10; } }
-	public float Penumbra { get { return m_penumbra; } }
+	public float Influence { get { return (m_influence + 0.5f * m_penumbra) * 10; } }
 
 	public bool IsFlashing { get { return m_brightnessCycleTime <= Mathf.PI; } }
 	public bool IsCharging { get { return Input.GetKey (playerIndex == 1 ? KeyCode.Space : KeyCode.Return); } }
@@ -47,11 +46,6 @@ public class PlayerController : MonoBehaviour
 		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 
 		animator = GetComponent<Animator> ();
-
-		if (playerIndex == 2) 
-		{
-			animator.playbackTime = animator.recorderStopTime * 0.7f;
-		}
 
 		if (players.Length <= 1) 
 		{
@@ -108,15 +102,11 @@ public class PlayerController : MonoBehaviour
 
 		transform.Translate( new Vector3(x, y, 0) );
 
-		if (HasPressed) 
-		{
-			ToChargingAnimation ();
-		}
-
 		// flash if either player stopped charging or flash of other player triggered this one
 		if (HasReleased) 
 		{
-			ReleaseFlash (m_charge);
+			ReleaseFlash ();
+			ToIdleAnimation ();
 		} else 
 		{
 			if (IsCharging && otherPlayer.IsFlashing) 
@@ -124,7 +114,7 @@ public class PlayerController : MonoBehaviour
 				float playerDist = (otherPlayer.transform.position - transform.position).magnitude;
 				if (playerDist < otherPlayer.Influence)
 				{
-					ReleaseFlash (m_charge);
+					Invoke ("ReleaseFlash", 0.3f);
 				}
 			}
 		}
@@ -144,9 +134,9 @@ public class PlayerController : MonoBehaviour
 		} 
 		else //if( !IsFlashing )
 		{
-			
 			if ( IsCharging )
 			{
+				ToChargingAnimation ();
 				ChargeFlash ();	
 				m_charge = Mathf.Min (maxCharge, m_charge + 0.3f * Time.deltaTime);
 			} 
@@ -184,20 +174,22 @@ public class PlayerController : MonoBehaviour
 		material.SetFloat ("_Penumbra" + playerIndex.ToString(), m_penumbra);
 	}
 
-	public void ReleaseFlash(float charge)
+	public void ReleaseFlash()
 	{
+		if (IsFlashing)
+			return;
 		material.SetFloat ( "_ShakeX" + playerIndex.ToString(), 0f );
-		m_chargeDecelerator = charge;
+		m_chargeDecelerator = m_charge;
 		if( !IsFlashing ) m_brightnessCycleTime = 0f;
 	}
 		
 	void ToChargingAnimation()
 	{
-		animator.CrossFade ("charging", 0.4f);
+		animator.SetBool ("Charge", true);
 	}
 
 	void ToIdleAnimation()
 	{
-		animator.CrossFade ("idle", 0.4f);
+		animator.SetBool ("Charge", false);
 	}
 }
