@@ -7,10 +7,16 @@ public class PlayerController : MonoBehaviour
 	public Material material;
 	public int playerIndex = 1;
 
-	public float Influence { get { return m_influence; } }
+	public float speed = 15f;
+
+	public float Influence { get { return m_influence * 10; } }
 	public float Penumbra { get { return m_penumbra; } }
 
-	public float speed = 15f;
+	public bool IsFlashing { get { return m_brightnessCycleTime <= Mathf.PI; } }
+	public bool IsCharging { get { return Input.GetKey (playerIndex == 1 ? KeyCode.Space : KeyCode.Return); } }
+
+	bool HasPressed { get { return Input.GetKeyDown (playerIndex == 1 ? KeyCode.Space : KeyCode.Return); } }
+	bool HasReleased { get { return Input.GetKeyUp (playerIndex == 1 ? KeyCode.Space : KeyCode.Return); } }
 
 	float m_penumbra;
 	float m_brightnessCycleTime = 4;
@@ -18,10 +24,15 @@ public class PlayerController : MonoBehaviour
 
 	float m_influence;
 
+	Animator animator;
+
+	PlayerController otherPlayer;
+
 	float m_charge;
 	float m_chargeDecelerator;
 
 	public float minCharge = 0.1f;
+	public float maxCharge = 2.0f;
 
 	public float defaultPenumbra = 0.15f;
 	public float minPenumbra = 0.07f;
@@ -33,6 +44,34 @@ public class PlayerController : MonoBehaviour
 
 	void Start () 
 	{
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+
+		animator = GetComponent<Animator> ();
+
+		if (playerIndex == 2) 
+		{
+			animator.playbackTime = animator.recorderStopTime * 0.7f;
+		}
+
+		if (players.Length <= 1) 
+		{
+			otherPlayer = null;
+			//Debug.Log ("Other Player null");
+		}
+		else 
+		{
+			PlayerController firstPlayer = players [0].GetComponent<PlayerController> ();
+			if (firstPlayer.playerIndex != playerIndex) {
+				otherPlayer = firstPlayer;
+				//Debug.Log ("Other Player " + firstIndex);
+			}
+			else
+			{
+				otherPlayer = players [1].GetComponent<PlayerController> ();
+				//Debug.Log ("Other Player not " + firstIndex);
+			}
+		}
+
 		m_penumbra = defaultPenumbra;
 		m_charge = minCharge;
 		material.SetFloat ("_Radius" + playerIndex.ToString(), 0);
@@ -69,11 +108,28 @@ public class PlayerController : MonoBehaviour
 
 		transform.Translate( new Vector3(x, y, 0) );
 
-		if (Input.GetKeyUp (playerIndex == 1 ? KeyCode.Space : KeyCode.Return)) {
-			ReleaseFlash (m_charge);
+		if (HasPressed) 
+		{
+			ToChargingAnimation ();
 		}
 
-		if (m_brightnessCycleTime <= Mathf.PI)
+		// flash if either player stopped charging or flash of other player triggered this one
+		if (HasReleased) 
+		{
+			ReleaseFlash (m_charge);
+		} else 
+		{
+			if (IsCharging && otherPlayer.IsFlashing) 
+			{
+				float playerDist = (otherPlayer.transform.position - transform.position).magnitude;
+				if (playerDist < otherPlayer.Influence)
+				{
+					ReleaseFlash (m_charge);
+				}
+			}
+		}
+
+		if ( IsFlashing )
 		{
 			if (m_brightnessCycleTime >= Mathf.PI / 2)
 			{
@@ -86,13 +142,13 @@ public class PlayerController : MonoBehaviour
 			m_influence = Mathf.Sin (m_brightnessCycleTime) * m_chargeDecelerator;
 			material.SetFloat ("_Radius" + playerIndex.ToString(), m_influence);
 		} 
-		else //if(m_brightnessCycleTime > Mathf.PI)
+		else //if( !IsFlashing )
 		{
 			
-			if (Input.GetKey (playerIndex == 1 ? KeyCode.Space : KeyCode.Return))
+			if ( IsCharging )
 			{
 				ChargeFlash ();	
-				m_charge += 0.3f * Time.deltaTime;
+				m_charge = Mathf.Min (maxCharge, m_charge + 0.3f * Time.deltaTime);
 			} 
 			else 
 			{
@@ -132,6 +188,16 @@ public class PlayerController : MonoBehaviour
 	{
 		material.SetFloat ( "_ShakeX" + playerIndex.ToString(), 0f );
 		m_chargeDecelerator = charge;
-		if( m_brightnessCycleTime > Mathf.PI ) m_brightnessCycleTime = 0f;
+		if( !IsFlashing ) m_brightnessCycleTime = 0f;
+	}
+		
+	void ToChargingAnimation()
+	{
+		animator.CrossFade ("charging", 0.4f);
+	}
+
+	void ToIdleAnimation()
+	{
+		animator.CrossFade ("idle", 0.4f);
 	}
 }
