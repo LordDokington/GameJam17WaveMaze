@@ -77,11 +77,10 @@ public class EnemieChasingBehaviour : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            Destroy(other.gameObject);
-            _isChasing = false;
-        }
+        if (other.gameObject.name == GameManager.Instance.Player1.name)
+            GameManager.Instance.KillPlayer(true);
+        if (other.gameObject.name == GameManager.Instance.Player2.name)
+            GameManager.Instance.KillPlayer(false);
     }
 
 }

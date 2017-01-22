@@ -107,4 +107,23 @@ public class GameManager : SingletonBehaviour<GameManager>
         var mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         mainCamera.GetComponent<WaveMaze.DarknessEffect>().enabled = state;
     }
+
+    public void KillPlayer(bool isPlayer1, bool isDoubleKill = false)
+    {
+        if(isDoubleKill)
+        {
+            _player1.SetActive(false);
+            _player2.SetActive(false);
+        }
+
+        if (isPlayer1)
+            _player1.SetActive(false);
+        else
+            _player2.SetActive(false);
+
+        if(!_player1.activeSelf && !_player1.activeSelf)
+        {
+            //TODO: Respawn
+        }
+    }
 }
