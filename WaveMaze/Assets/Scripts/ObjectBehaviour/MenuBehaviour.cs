@@ -18,6 +18,7 @@ public class MenuBehaviour : MonoBehaviour
 
     public void OnStartGameClicked()
     {
+        GameManager.Instance.ResetLevelNumber();
         SceneManager.LoadScene("GameScene");
     }
 

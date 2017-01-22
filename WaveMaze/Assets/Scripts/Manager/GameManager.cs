@@ -198,6 +198,11 @@ public class GameManager : SingletonBehaviour<GameManager>
         Debug.Log(_levelNumber);
     }
 
+    public void ResetLevelNumber()
+    {
+        _levelNumber = 1;
+    }
+
     public void SetSpawnPoints(GameObject[] spawnPoints)
     {
         _spawnPoints = spawnPoints;
