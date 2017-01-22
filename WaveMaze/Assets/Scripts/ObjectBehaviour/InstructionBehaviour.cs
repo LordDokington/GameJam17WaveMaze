@@ -57,6 +57,11 @@ public class InstructionBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		if (Input.GetKeyUp( KeyCode.Space) )
+		{
+			endInstructions ();
+		}
+
         switch(_currentState)
         {
             case InstructionState.Idle:

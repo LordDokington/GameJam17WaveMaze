@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
 
 	public float speed = 15f;
 
-	LevelData CurrentLevelData;
-
 	float m_penumbra;
 	float m_brightnessCycleTime = 4;
 	float m_brightnessCycleSpeed = 8f;

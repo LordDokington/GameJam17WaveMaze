@@ -99,7 +99,7 @@
 				float tPlayer1 = LightRing( _Radius1, _Penumbra1, _PlayerPos1 + float2(_ShakeX1, 0), i.uv );
 				float tPlayer2 = LightRing( _Radius2, _Penumbra2, _PlayerPos2 + float2(_ShakeX2, 0), i.uv );
 			
-				float tEnemy = ( _EnemyRadius == 0.0 ) ? 0.0 : LightRing( _EnemyRadius, 0.1, _EnemyPos1, i.uv );
+				float tEnemy = ( _EnemyRadius == 0.0 ) ? 1.0 : LightRing( _EnemyRadius, 0.1, _EnemyPos1, i.uv );
 				
 				//float t = 1 - (1- tPlayer) * (1- tEnemy);
 				float t =  tPlayer1 * tPlayer2  * tEnemy;
