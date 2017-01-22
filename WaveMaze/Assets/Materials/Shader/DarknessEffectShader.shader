@@ -83,7 +83,6 @@
 				
 				// distance to center is used to check if we are on circle
 				float2 transformedUV = float2( uv.x * aspect, uv.y );
-				
 				float r = length( transformedUV - center );
 
 				// relative position on "smoothed-out borders" - think of smoothed edges as a small ring area
@@ -101,7 +100,7 @@
 			
 				float tEnemy = ( _EnemyRadius == 0.0 ) ? 1.0 : LightRing( _EnemyRadius, 0.1, _EnemyPos1, i.uv );
 				
-				//float t = 1 - (1- tPlayer) * (1- tEnemy);
+				//float t = 1 - (1- tPlayer1) * (1- tPlayer2);
 				float t =  tPlayer1 * tPlayer2  * tEnemy;
 				
 				fixed4 col = tex2D(_MainTex, i.uv);
