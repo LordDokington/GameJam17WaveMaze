@@ -131,6 +131,10 @@ public class ExitArea : MonoBehaviour {
     //void Test(Collision collision)
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        bool AllPlayerAllive = !GameManager.Instance.ShouldSpawnPlayer();
+        if (!AllPlayerAllive){
+            GameManager.Instance.SpawrnOnePlayer();
+        }
         string aName = collision.gameObject.name;
         Debug.Log(aName + "triggered ExitArea ");
         if ( aName.Equals("Player1") || aName.Equals("Player2") )
