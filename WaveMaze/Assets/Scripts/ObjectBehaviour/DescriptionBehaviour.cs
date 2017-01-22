@@ -14,12 +14,12 @@ public class DescriptionBehaviour : MonoBehaviour
         DarknessEffect darkScript = mainCam.GetComponent<DarknessEffect>();
         if (ShouldBeActive)
         {
-            /*
-            darkScript.EnemyGlowPosition = LightSourceOne.position;
-            darkScript.EnemyGlowPosition = LightSourceTwo.position;
-            Set Radius
-            */
-
+            darkScript.StaticGlowPos1 = LightSourceOne.position;
+            darkScript.StaticGlowRadius1 = 0.2f;
+            darkScript.StaticGlowPos2 = LightSourceTwo.position;
+            darkScript.StaticGlowRadius2 = 0.2f;
         }
+
+        Debug.Log("LIGHT!");
     }
 }

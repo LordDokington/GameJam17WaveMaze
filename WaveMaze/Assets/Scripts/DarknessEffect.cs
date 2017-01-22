@@ -84,8 +84,8 @@ public class DarknessEffect : MonoBehaviour {
 		m_staticGlow2.x = normalizedGlowPos2.x;
 		m_staticGlow2.y = normalizedGlowPos2.y;
 		
-		material.SetVector( "_StaticHighlight1", normalizedGlowPos1 );
-		material.SetVector( "_StaticHighlight2", normalizedGlowPos2 );
+		material.SetVector( "_StaticHighlight1", m_staticGlow1);
+		material.SetVector( "_StaticHighlight2", m_staticGlow2);
 	}
 }
 
