@@ -121,21 +121,37 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if(isDoubleKill)
         {
+            _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r, 
+                _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 0f);
             _player1.SetActive(false);
+            _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 0f);
             _player2.SetActive(false);
         }
 
         if (isPlayer1)
-            _player1.SetActive(false);
-        else
-            _player2.SetActive(false);
-
-        if(!_player1.activeSelf && !_player1.activeSelf)
         {
-            _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
-            _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+            _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
+                _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 0f);
+            _player1.SetActive(false);
+        }
+        else
+        {
+            _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 0f);
+            _player2.SetActive(false);
+        }
+
+        if(!_player1.activeSelf && !_player2.activeSelf)
+        {
             _player1.SetActive(true);
             _player2.SetActive(true);
+            _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+            _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+            _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
+                _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 1f);
+            _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 1f);
         }
     }
 
@@ -146,6 +162,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void SearchSpawnPoints()
     {
-        _spawnPoints = null;
+        _spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+        Debug.Log(_spawnPoints.Length);
     }
 }
