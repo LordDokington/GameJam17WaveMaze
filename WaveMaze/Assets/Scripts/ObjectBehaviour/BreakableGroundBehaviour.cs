@@ -37,7 +37,7 @@ public class BreakableGroundBehaviour : MonoBehaviour
                 GroundSpriteR.sprite = _groundImgs[_indexOfImgs];
                 if(_indexOfImgs == _groundImgs.Length-1)
                 {
-                    //TODO: Kill player
+                    GameManager.Instance.KillPlayer(true, true);
                 }
             }
         }
