@@ -15,9 +15,9 @@ public class DescriptionBehaviour : MonoBehaviour
         if (ShouldBeActive)
         {
             darkScript.StaticGlowPos1 = LightSourceOne.position;
-            darkScript.StaticGlowRadius1 = 0.2f;
+            darkScript.StaticGlowRadius1 = 0.25f;
             darkScript.StaticGlowPos2 = LightSourceTwo.position;
-            darkScript.StaticGlowRadius2 = 0.2f;
+            darkScript.StaticGlowRadius2 = 0.25f;
         }
 
         Debug.Log("LIGHT!");

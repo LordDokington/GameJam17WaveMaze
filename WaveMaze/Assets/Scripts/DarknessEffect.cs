@@ -76,11 +76,11 @@ public class DarknessEffect : MonoBehaviour {
 		Vector2 normalizedPos = NormalizedPos (m_enemyGlowPosition);
 		material.SetVector( "_EnemyPos1", new Vector4(normalizedPos.x, normalizedPos.y, 0, 0) );
 		
-		Vector2 normalizedGlowPos1 = NormalizedPos (m_staticGlow1);
-		Vector2 normalizedGlowPos2 = NormalizedPos (m_staticGlow2);
+		Vector2 normalizedGlowPos1 = NormalizedPos ( new Vector2(-6.99f, 1.52f) );
 		m_staticGlow1.x = normalizedGlowPos1.x;
 		m_staticGlow1.y = normalizedGlowPos1.y;
-		
+
+		Vector2 normalizedGlowPos2 = NormalizedPos ( new Vector2(-6.97f, -2.18f) );
 		m_staticGlow2.x = normalizedGlowPos2.x;
 		m_staticGlow2.y = normalizedGlowPos2.y;
 		
