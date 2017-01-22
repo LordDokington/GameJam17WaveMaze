@@ -9,11 +9,26 @@ public class PlayerController : MonoBehaviour
 
 	public float speed = 15f;
 
-	public float Influence { get { return m_influence * 10; } }
-	public float Penumbra { get { return m_penumbra; } }
+	private float fuseDistance = 2.0f;
+
+	public float Influence { get { return (m_influence + 0.5f * m_penumbra) * 10; } }
 
 	public bool IsFlashing { get { return m_brightnessCycleTime <= Mathf.PI; } }
 	public bool IsCharging { get { return Input.GetKey (playerIndex == 1 ? KeyCode.Space : KeyCode.Return); } }
+
+	public bool AreFused 
+	{ 
+		get { 
+			float playerDistSqr = (otherPlayer.transform.position - transform.position).sqrMagnitude;
+			// fusion takes place
+			return (playerDistSqr < fuseDistance * fuseDistance);
+		}
+	}
+
+	float DefaultPenumbra { get { return AreFused ? 2.6f * defaultPenumbra : defaultPenumbra; } }
+	float MinPenumbra { get { return AreFused ? 2 * minPenumbra : minPenumbra; } }
+	float PenumbraIncrease { get { return AreFused ? 1.0f : 0.4f; } }
+	float PenumbraDecrease { get { return AreFused ? 0.4f : 1.0f; } }
 
 	bool HasPressed { get { return Input.GetKeyDown (playerIndex == 1 ? KeyCode.Space : KeyCode.Return); } }
 	bool HasReleased { get { return Input.GetKeyUp (playerIndex == 1 ? KeyCode.Space : KeyCode.Return); } }
@@ -48,15 +63,9 @@ public class PlayerController : MonoBehaviour
 
 		animator = GetComponent<Animator> ();
 
-		if (playerIndex == 2) 
-		{
-			animator.playbackTime = animator.recorderStopTime * 0.7f;
-		}
-
 		if (players.Length <= 1) 
 		{
 			otherPlayer = null;
-			//Debug.Log ("Other Player null");
 		}
 		else 
 		{
@@ -91,40 +100,57 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		Vector2 playerPos = NormalizedPos();
-		material.SetVector( "_PlayerPos" + playerIndex.ToString(), new Vector4(playerPos.x, playerPos.y, 0, 0) );
+		float playerDist = (otherPlayer.transform.position - transform.position).magnitude;
 
-		float x, y;
-		if (playerIndex == 1)
-        {
-            x = Input.GetAxis("HorizontalP1") * speed * Time.deltaTime;
-            y = Input.GetAxis("VerticalP1") * speed * Time.deltaTime;
-        }
-        else
-        {
-            x = Input.GetAxis("HorizontalP2") * speed * Time.deltaTime;
-            y = Input.GetAxis("VerticalP2") * speed * Time.deltaTime;
-        }
-
-		transform.Translate( new Vector3(x, y, 0) );
-
-		if (HasPressed) 
+		// fusion takes place
+		if ( AreFused )
 		{
-			ToChargingAnimation ();
+			ToIdleAnimation ();
+			// player 1 sets position
+			if (playerIndex == 1)
+			{
+				Vector3 centerPos = (NormalizedPos () + otherPlayer.NormalizedPos ()) / 2;
+				material.SetVector ("_PlayerPos1", new Vector4 (centerPos.x, centerPos.y, 0, 0));		
+			} 
+			// player2 sets his position somewhere we wont notice
+			else
+			{
+				material.SetVector ("_PlayerPos2", new Vector4 (-300, -300, 0, 0));
+			}
+		} 
+		else
+		{
+			Vector2 playerPos = NormalizedPos ();
+			material.SetVector ("_PlayerPos" + playerIndex.ToString (), new Vector4 (playerPos.x, playerPos.y, 0, 0));
 		}
 
-		// flash if either player stopped charging or flash of other player triggered this one
-		if (HasReleased) 
+		// can only move if not charging
+		if (!IsCharging) 
 		{
-			ReleaseFlash (m_charge);
+			float x, y;
+			if (playerIndex == 1) {
+				x = Input.GetAxis ("HorizontalP1") * speed * Time.deltaTime;
+				y = Input.GetAxis ("VerticalP1") * speed * Time.deltaTime;
+			} else {
+				x = Input.GetAxis ("HorizontalP2") * speed * Time.deltaTime;
+				y = Input.GetAxis ("VerticalP2") * speed * Time.deltaTime;
+			}
+
+			transform.Translate( new Vector3(x, y, 0) );
+		}
+			
+
+		// flash if either player stopped charging or flash of other player triggered this one
+		if (HasReleased)
+		{
+			ReleaseFlash ();
 		} else 
 		{
 			if (IsCharging && otherPlayer.IsFlashing) 
 			{
-				float playerDist = (otherPlayer.transform.position - transform.position).magnitude;
 				if (playerDist < otherPlayer.Influence)
 				{
-					ReleaseFlash (m_charge);
+					Invoke ("ReleaseFlash", 0.3f);
 				}
 			}
 		}
@@ -144,8 +170,7 @@ public class PlayerController : MonoBehaviour
 		} 
 		else //if( !IsFlashing )
 		{
-			
-			if ( IsCharging )
+			if ( IsCharging && !AreFused )
 			{
 				ChargeFlash ();	
 				m_charge = Mathf.Min (maxCharge, m_charge + 0.3f * Time.deltaTime);
@@ -169,8 +194,8 @@ public class PlayerController : MonoBehaviour
 
 	public void ChargeFlash()
 	{
-		float penumbraDecrease = 1.0f;
-		m_penumbra = Mathf.Lerp (m_penumbra, minPenumbra, penumbraDecrease * Time.deltaTime);
+		ToChargingAnimation ();
+		m_penumbra = Mathf.Lerp (m_penumbra, MinPenumbra, PenumbraDecrease * Time.deltaTime);
 		material.SetFloat ("_Penumbra" + playerIndex.ToString(), m_penumbra);
 
 		float shakeAmount = ( m_penumbra / (defaultPenumbra - minPenumbra) ) * shakeStrength;
@@ -179,25 +204,27 @@ public class PlayerController : MonoBehaviour
 
 	public void RecoverFlash()
 	{
-		float penumbraIncrease = 0.4f;
-		m_penumbra = Mathf.Lerp (m_penumbra, defaultPenumbra, penumbraIncrease * Time.deltaTime);
+		m_penumbra = Mathf.Lerp (m_penumbra, DefaultPenumbra, PenumbraIncrease * Time.deltaTime);
 		material.SetFloat ("_Penumbra" + playerIndex.ToString(), m_penumbra);
 	}
 
-	public void ReleaseFlash(float charge)
+	public void ReleaseFlash()
 	{
+		if (IsFlashing)
+			return;
+		ToIdleAnimation ();
 		material.SetFloat ( "_ShakeX" + playerIndex.ToString(), 0f );
-		m_chargeDecelerator = charge;
+		m_chargeDecelerator = m_charge;
 		if( !IsFlashing ) m_brightnessCycleTime = 0f;
 	}
 		
 	void ToChargingAnimation()
 	{
-		animator.CrossFade ("charging", 0.4f);
+		animator.SetBool ("Charge", true);
 	}
 
 	void ToIdleAnimation()
 	{
-		animator.CrossFade ("idle", 0.4f);
+		animator.SetBool ("Charge", false);
 	}
 }

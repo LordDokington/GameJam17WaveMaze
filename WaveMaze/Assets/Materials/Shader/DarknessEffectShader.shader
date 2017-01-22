@@ -83,6 +83,7 @@
 				
 				// distance to center is used to check if we are on circle
 				float2 transformedUV = float2( uv.x * aspect, uv.y );
+				
 				float r = length( transformedUV - center );
 
 				// relative position on "smoothed-out borders" - think of smoothed edges as a small ring area
