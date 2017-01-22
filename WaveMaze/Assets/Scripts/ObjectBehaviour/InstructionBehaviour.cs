@@ -141,6 +141,8 @@ public class InstructionBehaviour : MonoBehaviour
         if (!_endGameAfterText)
         {
             GameManager.Instance.StartBGM();
+            GameManager.Instance.SearchSpawnPoints();
+            GameObject.Find("Description").GetComponent<DescriptionBehaviour>().SetLightStatus(true);
             ShowOther();
             gameObject.SetActive(false);
         }

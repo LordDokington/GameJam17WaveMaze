@@ -50,20 +50,24 @@
 
 			
 			sampler2D _MainTex;
-
-			fixed4 frag (v2f i) : SV_Target
+			
+			float ring(float radius, float thickness, float smoothing, fixed2 position, half2 uv)
 			{
 				// borders o circle, defined by radius and thickness
-				float start = _Radius - _Thickness * 0.5; 
-				float end =   _Radius + _Thickness * 0.5;
+				float start = radius - thickness * 0.5; 
+				float end =   radius + thickness * 0.5;
 
 				// offset that is used for smoothing the circle edges
-				float offset = _SmoothingOffset;
+				float offset = smoothing;
+				
+				float aspect = 16.0 / 9.0;
 				// relative center of object (with quad with uv textures going from 0 to 1 this is the center)
-				float2 center = float2(_Position.x, _Position.y);
-
+				float2 center = float2(position.x, position.y);
+				
+				float2 dist = uv - center;
+				dist.x *= aspect;
 				// distance to center is used to check if we are on circle
-				float r = length( i.uv - center );
+				float r = length( dist );
 
 				// relative position on "s moothed-out borders" - think of smoothed edges as a small ring area
 				float startRelative = (r - (start - offset)) / (2 * offset);
@@ -71,10 +75,25 @@
 				// use smoothstep to smooth edges
 				float tStart = smoothstep( 0, 1, startRelative );
 				float tEnd = smoothstep( 0, 1, endRelative );
+				
+				return tStart * tEnd;
+			}
+			
+			float wave(float radius, float thickness, float smoothing, fixed2 position, half2 uv)
+			{
+				float t = ring(radius, thickness, smoothing, position, uv);
+				t = max( t, ring(radius - 0.084, thickness + 0.03, smoothing, position, uv) );
+				t = max( t, ring(radius - 0.2, thickness + 0.05, smoothing, position, uv) );
+				return t;
+			}
+
+			fixed4 frag (v2f i) : SV_Target
+			{
+				float t = wave(_Radius, _Thickness, _SmoothingOffset, _Position, i.uv);
 
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
-				col = lerp(col, fixed4(1, 0, 0, 1), tStart * tEnd);
+				col = lerp(col, fixed4(0, 0, 0, 1), t * (1-_Radius) );
 
 				return col;
 			}

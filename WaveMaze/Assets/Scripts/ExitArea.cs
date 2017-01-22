@@ -121,6 +121,7 @@ public class ExitArea : MonoBehaviour {
                 CollectedMoveFinisched = false;
                 FleetMoveStart = false;
                 FleetMoveFinisched = false;
+                GameManager.Instance.IncreaseLevelNumber();
                 TriggeredPlayer.GetComponent<PlayerController>().Can_Input = true;
                 CollectedPlayer.GetComponent<PlayerController>().Can_Input = true;
                 CollectedPlayer.GetComponent<CircleCollider2D>().enabled = true;
