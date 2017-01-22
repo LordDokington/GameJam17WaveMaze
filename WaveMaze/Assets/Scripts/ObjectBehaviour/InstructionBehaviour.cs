@@ -15,6 +15,7 @@ public class InstructionBehaviour : MonoBehaviour
         FadeOut
     }
 
+    public GameObject[] SpawnPoints;
     public Image Background;
     public Text TextStoryLine;
     public AudioSource Audiosrc;
@@ -141,7 +142,7 @@ public class InstructionBehaviour : MonoBehaviour
         if (!_endGameAfterText)
         {
             GameManager.Instance.StartBGM();
-            GameManager.Instance.SearchSpawnPoints();
+            GameManager.Instance.SetSpawnPoints(SpawnPoints);
             GameObject.Find("Description").GetComponent<DescriptionBehaviour>().SetLightStatus(true);
             ShowOther();
             gameObject.SetActive(false);

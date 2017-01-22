@@ -159,11 +159,11 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void IncreaseLevelNumber()
     {
         ++_levelNumber;
+        Debug.Log(_levelNumber);
     }
 
-    public void SearchSpawnPoints()
+    public void SetSpawnPoints(GameObject[] spawnPoints)
     {
-        _spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
-        Debug.Log(_spawnPoints.Length);
+        _spawnPoints = spawnPoints;
     }
 }
