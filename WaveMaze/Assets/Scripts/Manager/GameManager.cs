@@ -146,7 +146,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             _player1.SetActive(true);
             _player2.SetActive(true);
-            if (_levelNumber - 1 <= _spawnPoints.Length)
+            if (_levelNumber - 1 < _spawnPoints.Length)
             {
                 _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
                 Debug.Log(_spawnPoints[_levelNumber - 1].transform.parent.name);
