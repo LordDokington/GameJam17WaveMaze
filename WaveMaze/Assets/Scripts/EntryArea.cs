@@ -14,7 +14,8 @@ public class EntryArea : MonoBehaviour {
 		
 	}
 
-    private void OnCollision2D(Collision2D collision)
+    void test(Collision collision)
+    //private void OnTriggerEnter(Collision collision)
     {
         string aName = collision.gameObject.name;
         if (aName.Equals("Player1") || aName.Equals("Player2"))
