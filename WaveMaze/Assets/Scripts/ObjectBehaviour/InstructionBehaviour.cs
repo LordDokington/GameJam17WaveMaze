@@ -15,6 +15,8 @@ public class InstructionBehaviour : MonoBehaviour
         FadeOut
     }
 
+    private List<string> _introStrings = new List<string>();
+    private List<string> _outroStrings = new List<string>();
     public GameObject[] SpawnPoints;
     public Image Background;
     public Text TextStoryLine;
@@ -39,6 +41,7 @@ public class InstructionBehaviour : MonoBehaviour
     {
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetInstrObj = gameObject;
+        LoadInstructionStrings();
         Init(false);
 	}
 
@@ -97,7 +100,7 @@ public class InstructionBehaviour : MonoBehaviour
             }
             else
             {
-                endInstructions();
+               // endInstructions();
             }
         }
     }
@@ -142,10 +145,12 @@ public class InstructionBehaviour : MonoBehaviour
         if (!_endGameAfterText)
         {
             GameManager.Instance.StartBGM();
+            GameManager.Instance.CurrentState = GameManager.GameState.Game;
             GameManager.Instance.SetSpawnPoints(SpawnPoints);
             GameObject.Find("Description").GetComponent<DescriptionBehaviour>().SetLightStatus(true);
             ShowOther();
             gameObject.SetActive(false);
+
 
         }
         else
@@ -158,21 +163,34 @@ public class InstructionBehaviour : MonoBehaviour
     {
         if(IsOutro)
         {
-            _story = GameManager.Instance.GetGameData.m_OutroTextList;
+            _story = _outroStrings;
             Background.sprite = Resources.Load<Sprite>("Sprites/outro_bg");
             _endGameAfterText = true;
         }
         else
         {
-            _story = GameManager.Instance.GetGameData.m_IntroTextList; 
+            _story = _introStrings; 
             Background.sprite = Resources.Load<Sprite>("Sprites/intro_bg");
             _endGameAfterText = false;
         }
+        GameManager.Instance.CurrentState = GameManager.GameState.Introduction;
         TextStoryLine.text = "";
         Audiosrc.Play();
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
         _fadingTimeCurrent = _fadingTimeMax;
         HideOther();
+    }
+
+    private void LoadInstructionStrings()
+    {
+        _introStrings.Add("Einst hülltet ihr das Land in Licht und Wärme.");
+        _introStrings.Add("Die Sonne glitzerte und das Grün der Bäume strahlte um die Wette");
+        _introStrings.Add("Doch dann kam das Dunkel");
+        _introStrings.Add("Es raubte die Sicht und seit dem Tag herrscht Kälte");
+        _introStrings.Add("Und verbannte euch in die Verliese unter dem Berg...");
+        _outroStrings.Add("Ihr habt es geschafft!");
+        _outroStrings.Add("Ihr seid den Bluthunden des Dunkels tatsächlich entwischt!");
+        _outroStrings.Add("Erleuchtet und das Land soll nie wieder in Dunkelheit versinken!");
     }
 }

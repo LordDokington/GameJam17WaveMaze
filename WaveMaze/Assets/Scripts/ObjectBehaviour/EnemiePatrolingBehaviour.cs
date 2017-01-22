@@ -57,20 +57,23 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(GameManager.Instance.Player1.transform.position, transform.position) <= 10 ||
-            Vector3.Distance(GameManager.Instance.Player2.transform.position, transform.position) <= 10)
+        if (GameManager.Instance.CurrentState == GameManager.GameState.Game)
         {
-            doNothing = false;
-        }
-
-        if (!doNothing)
-        {
-            walkingTimeLeft = walkingTimeLeft - speed * Time.deltaTime;
-            if (Points.Length != 0)
+            if (Vector3.Distance(GameManager.Instance.Player1.transform.position, transform.position) <= 10 ||
+                Vector3.Distance(GameManager.Instance.Player2.transform.position, transform.position) <= 10)
             {
-                transform.position = Vector3.Lerp(Points[startIndex].position, Points[nextIndex].position, 1 - walkingTimeLeft);
-                if (Vector3.Distance(transform.position, Points[nextIndex].position) <= 0f)
-                    gotoNextPoint();
+                doNothing = false;
+            }
+
+            if (!doNothing)
+            {
+                walkingTimeLeft = walkingTimeLeft - speed * Time.deltaTime;
+                if (Points.Length != 0)
+                {
+                    transform.position = Vector3.Lerp(Points[startIndex].position, Points[nextIndex].position, 1 - walkingTimeLeft);
+                    if (Vector3.Distance(transform.position, Points[nextIndex].position) <= 0f)
+                        gotoNextPoint();
+                }
             }
         }
     }
