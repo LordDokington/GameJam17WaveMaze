@@ -21,7 +21,9 @@ public class EntryArea : MonoBehaviour {
         Debug.Log(aName + " triggered EntryArea");
         if (aName.Equals("Player1") || aName.Equals("Player2"))
         {
+           // this.GetComponent<BoxCollider2D>().isTrigger = false;
             this.GetComponent<BoxCollider2D>().enabled = false;
+        
         }
     }
 

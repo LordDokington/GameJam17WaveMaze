@@ -9,15 +9,15 @@ public class ExitArea : MonoBehaviour {
     public GameObject CollectedPlayer;
 
     public float CollectDistance = 0.8f;
-    public float FollowDistance = 1f;
+    public float FollowDistance = 1.5f;
     public float MoveSpeed = 8f;
     public float FleetSpeed = 8.5f;
 
-    bool CollectedMoveStart = false;
-    bool CollectedMoveFinisched = false;
+    public bool CollectedMoveStart = false;
+    public bool CollectedMoveFinisched = false;
 
-    bool FleetMoveStart = false;
-    bool FleetMoveFinisched = false;
+    public bool FleetMoveStart = false;
+    public bool FleetMoveFinisched = false;
 
     int Etappe = 0;
 
@@ -75,7 +75,8 @@ public class ExitArea : MonoBehaviour {
 
         if (CollectedMoveFinisched)
         {
-            CollectedMoveFinisched = true;
+            CollectedMoveStart = false;
+            CollectedMoveFinisched = false;
         }
     }
 
@@ -114,6 +115,7 @@ public class ExitArea : MonoBehaviour {
 
             if (FleetMoveFinisched)
             {
+                FleetMoveStart = false;
                 FleetMoveFinisched = false;
                 TriggeredPlayer.GetComponent<PlayerController>().Can_Input = true;
                 CollectedPlayer.GetComponent<PlayerController>().Can_Input = true;
