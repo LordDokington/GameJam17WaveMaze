@@ -23,6 +23,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     private GameObject _player1;
     private GameObject _player2;
     private GameData m_GameData;
+    private int _levelNumber;
+    private GameObject[] _spawnPoints;
 
     bool SpawnPlayerAfterGameInit = false;
 
@@ -49,6 +51,11 @@ public class GameManager : SingletonBehaviour<GameManager>
         set { _instructionObject = value; }
     }
 
+    public int CurrentLevel
+    {
+        get { return _levelNumber; }
+    }
+
     public override void AwakeSingleton()
     {
         DontDestroyOnLoad(gameObject);
@@ -63,6 +70,8 @@ public class GameManager : SingletonBehaviour<GameManager>
         aGameDataGenerator.Save( !File.Exists(Defines.c_GameDataFile) );
 #endif
         FinishPreloading = true;
+        _levelNumber = 1;
+        _spawnPoints = new GameObject[100];
 
         m_GameData = GameDataGenerator.Load();
     }
@@ -112,18 +121,52 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if(isDoubleKill)
         {
+            _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r, 
+                _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 0f);
             _player1.SetActive(false);
+            _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 0f);
             _player2.SetActive(false);
         }
 
         if (isPlayer1)
-            _player1.SetActive(false);
-        else
-            _player2.SetActive(false);
-
-        if(!_player1.activeSelf && !_player1.activeSelf)
         {
-            //TODO: Respawn
+            _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
+                _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 0f);
+            _player1.SetActive(false);
         }
+        else
+        {
+            _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 0f);
+            _player2.SetActive(false);
+        }
+
+        if(!_player1.activeSelf && !_player2.activeSelf)
+        {
+            _player1.SetActive(true);
+            _player2.SetActive(true);
+            if (_levelNumber - 1 <= _spawnPoints.Length)
+            {
+                _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+                Debug.Log(_spawnPoints[_levelNumber - 1].transform.parent.name);
+                _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+                _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
+                    _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 1f);
+                _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                    _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 1f);
+            }
+        }
+    }
+
+    public void IncreaseLevelNumber()
+    {
+        ++_levelNumber;
+        Debug.Log(_levelNumber);
+    }
+
+    public void SetSpawnPoints(GameObject[] spawnPoints)
+    {
+        _spawnPoints = spawnPoints;
     }
 }

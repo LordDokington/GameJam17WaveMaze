@@ -28,7 +28,7 @@ public class BreakableGroundBehaviour : MonoBehaviour
         {
             ++_dmgCounter;
         }
-        if(_dmgCounter % 10 == 0 && _dmgCounter > 0)
+        if(_dmgCounter % 20 == 0 && _dmgCounter > 0)
         {
             ++_indexOfImgs;
             if (_indexOfImgs < _groundImgs.Length)

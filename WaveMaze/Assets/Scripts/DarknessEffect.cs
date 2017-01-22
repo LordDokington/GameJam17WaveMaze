@@ -9,11 +9,44 @@ public class DarknessEffect : MonoBehaviour {
 	public Material material;
 
 	private Vector3 m_enemyGlowPosition;
+	
+	private Vector4 m_staticGlow1;
+	private Vector4 m_staticGlow2;
 
 	public Vector3 EnemyGlowPosition
 	{
 		set { m_enemyGlowPosition = value; }
 	}
+	
+	public Vector3 StaticGlowPos1
+	{
+		set 
+		{ 
+			m_staticGlow1.x = value.x;
+			m_staticGlow1.y = value.y;			
+		}
+	}
+	
+	public Vector3 StaticGlowPos2
+	{
+		set 
+		{ 
+			m_staticGlow2.x = value.x;
+			m_staticGlow2.y = value.y;			
+		}
+	}
+	
+	
+	public float StaticGlowRadius1
+	{
+		set { m_staticGlow1.z = value; }
+	}
+
+	public float StaticGlowRadius2
+	{
+		set { m_staticGlow2.z = value; }
+	}
+
 
 	public float EnemyGlowRadius
 	{
@@ -42,6 +75,17 @@ public class DarknessEffect : MonoBehaviour {
 	{
 		Vector2 normalizedPos = NormalizedPos (m_enemyGlowPosition);
 		material.SetVector( "_EnemyPos1", new Vector4(normalizedPos.x, normalizedPos.y, 0, 0) );
+		
+		Vector2 normalizedGlowPos1 = NormalizedPos ( new Vector2(-6.99f, 1.52f) );
+		m_staticGlow1.x = normalizedGlowPos1.x;
+		m_staticGlow1.y = normalizedGlowPos1.y;
+
+		Vector2 normalizedGlowPos2 = NormalizedPos ( new Vector2(-6.97f, -2.18f) );
+		m_staticGlow2.x = normalizedGlowPos2.x;
+		m_staticGlow2.y = normalizedGlowPos2.y;
+		
+		material.SetVector( "_StaticHighlight1", m_staticGlow1);
+		material.SetVector( "_StaticHighlight2", m_staticGlow2);
 	}
 }
 
