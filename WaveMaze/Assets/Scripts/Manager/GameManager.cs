@@ -15,6 +15,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         Credits
     }
 
+    public AudioSource Audiosrc;
     public GameState CurrentState;
     public bool FinishPreloading;
 
@@ -89,6 +90,16 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         _instructionObject.SetActive(true);
         _instructionObject.GetComponent<InstructionBehaviour>().Init(true);
+    }
+
+    public void StartBGM()
+    {
+        Audiosrc.Play();
+    }
+
+    public void StopBGM()
+    {
+        Audiosrc.Stop();
     }
 
     public void ShouldCameraDarknessBeOn(bool state)

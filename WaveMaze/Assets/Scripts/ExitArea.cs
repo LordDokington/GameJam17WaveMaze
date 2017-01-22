@@ -53,8 +53,8 @@ public class ExitArea : MonoBehaviour {
     void collectPlayer() {
         if (CollectedMoveStart && !CollectedMoveFinisched)
         {
-            TriggeredPlayer.GetComponent<PlayerController>().enabled = false;
-            CollectedPlayer.GetComponent<PlayerController>().enabled = false;
+            TriggeredPlayer.GetComponent<PlayerController>().Can_Input = false;
+            CollectedPlayer.GetComponent<PlayerController>().Can_Input = false;
             float aDistance = Vector3.Distance(TriggeredPlayer.transform.position, CollectedPlayer.transform.position);
             //Debug.Log(aDistance.ToString());
             if (aDistance < CollectDistance)
@@ -115,8 +115,9 @@ public class ExitArea : MonoBehaviour {
             if (FleetMoveFinisched)
             {
                 FleetMoveFinisched = false;
-                TriggeredPlayer.GetComponent<PlayerController>().enabled = false;
-                CollectedPlayer.GetComponent<PlayerController>().enabled = false;
+                TriggeredPlayer.GetComponent<PlayerController>().Can_Input = true;
+                CollectedPlayer.GetComponent<PlayerController>().Can_Input = true;
+                CollectedPlayer.GetComponent<CircleCollider2D>().enabled = true;
             }
         }
     }
