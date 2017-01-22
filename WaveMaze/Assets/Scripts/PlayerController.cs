@@ -57,7 +57,9 @@ public class PlayerController : MonoBehaviour
 
 	public float shakeStrength = 0.01f;
 
-	void Start () 
+    public bool Can_Input = true;
+
+    void Start () 
 	{
 		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 
@@ -97,90 +99,91 @@ public class PlayerController : MonoBehaviour
 		return transformedPos;
 	}
 
-	// Update is called once per frame
-	void Update () 
-	{
-		float playerDist = (otherPlayer.transform.position - transform.position).magnitude;
+    // Update is called once per frame
+    void Update()
+    {
+        float playerDist = (otherPlayer.transform.position - transform.position).magnitude;
 
-		// fusion takes place
-		if ( AreFused )
-		{
-			ToIdleAnimation ();
-			// player 1 sets position
-			if (playerIndex == 1)
-			{
-				Vector3 centerPos = (NormalizedPos () + otherPlayer.NormalizedPos ()) / 2;
-				material.SetVector ("_PlayerPos1", new Vector4 (centerPos.x, centerPos.y, 0, 0));		
-			} 
-			// player2 sets his position somewhere we wont notice
-			else
-			{
-				material.SetVector ("_PlayerPos2", new Vector4 (-300, -300, 0, 0));
-			}
-		} 
-		else
-		{
-			Vector2 playerPos = NormalizedPos ();
-			material.SetVector ("_PlayerPos" + playerIndex.ToString (), new Vector4 (playerPos.x, playerPos.y, 0, 0));
-		}
+        // fusion takes place
+        if (AreFused)
+        {
+            ToIdleAnimation();
+            // player 1 sets position
+            if (playerIndex == 1)
+            {
+                Vector3 centerPos = (NormalizedPos() + otherPlayer.NormalizedPos()) / 2;
+                material.SetVector("_PlayerPos1", new Vector4(centerPos.x, centerPos.y, 0, 0));
+            }
+            // player2 sets his position somewhere we wont notice
+            else
+            {
+                material.SetVector("_PlayerPos2", new Vector4(-300, -300, 0, 0));
+            }
+        }
+        else
+        {
+            Vector2 playerPos = NormalizedPos();
+            material.SetVector("_PlayerPos" + playerIndex.ToString(), new Vector4(playerPos.x, playerPos.y, 0, 0));
+        }
+        if (Can_Input){ 
+            // can only move if not charging
+            if (!IsCharging)
+            {
+                float x, y;
+                if (playerIndex == 1) {
+                    x = Input.GetAxis("HorizontalP1") * speed * Time.deltaTime;
+                    y = Input.GetAxis("VerticalP1") * speed * Time.deltaTime;
+                } else {
+                    x = Input.GetAxis("HorizontalP2") * speed * Time.deltaTime;
+                    y = Input.GetAxis("VerticalP2") * speed * Time.deltaTime;
+                }
 
-		// can only move if not charging
-		if (!IsCharging) 
-		{
-			float x, y;
-			if (playerIndex == 1) {
-				x = Input.GetAxis ("HorizontalP1") * speed * Time.deltaTime;
-				y = Input.GetAxis ("VerticalP1") * speed * Time.deltaTime;
-			} else {
-				x = Input.GetAxis ("HorizontalP2") * speed * Time.deltaTime;
-				y = Input.GetAxis ("VerticalP2") * speed * Time.deltaTime;
-			}
+                transform.Translate(new Vector3(x, y, 0));
+            }
 
-			transform.Translate( new Vector3(x, y, 0) );
-		}
-			
 
-		// flash if either player stopped charging or flash of other player triggered this one
-		if (HasReleased)
-		{
-			ReleaseFlash ();
-		} else 
-		{
-			if (IsCharging && otherPlayer.IsFlashing) 
-			{
-				if (playerDist < otherPlayer.Influence)
-				{
-					Invoke ("ReleaseFlash", 0.3f);
-				}
-			}
-		}
+            // flash if either player stopped charging or flash of other player triggered this one
+            if (HasReleased)
+            {
+                ReleaseFlash();
+            } else
+            {
+                if (IsCharging && otherPlayer.IsFlashing)
+                {
+                    if (playerDist < otherPlayer.Influence)
+                    {
+                        Invoke("ReleaseFlash", 0.3f);
+                    }
+                }
+            }
 
-		if ( IsFlashing )
-		{
-			if (m_brightnessCycleTime >= Mathf.PI / 2)
-			{
-				m_brightnessCycleTime += Time.deltaTime * shrinkSpeed;
-			}
-			else
-			{
-				m_brightnessCycleTime += Time.deltaTime * expandSpeed;
-			}
-			m_influence = Mathf.Sin (m_brightnessCycleTime) * m_chargeDecelerator;
-			material.SetFloat ("_Radius" + playerIndex.ToString(), m_influence);
-		} 
-		else //if( !IsFlashing )
-		{
-			if ( IsCharging && !AreFused )
-			{
-				ChargeFlash ();	
-				m_charge = Mathf.Min (maxCharge, m_charge + 0.3f * Time.deltaTime);
-			} 
-			else 
-			{
-				RecoverFlash ();
-				m_charge = minCharge;
-			}
-		}
+            if (IsFlashing)
+            {
+                if (m_brightnessCycleTime >= Mathf.PI / 2)
+                {
+                    m_brightnessCycleTime += Time.deltaTime * shrinkSpeed;
+                }
+                else
+                {
+                    m_brightnessCycleTime += Time.deltaTime * expandSpeed;
+                }
+                m_influence = Mathf.Sin(m_brightnessCycleTime) * m_chargeDecelerator;
+                material.SetFloat("_Radius" + playerIndex.ToString(), m_influence);
+            }
+            else //if( !IsFlashing )
+            {
+                if (IsCharging && !AreFused)
+                {
+                    ChargeFlash();
+                    m_charge = Mathf.Min(maxCharge, m_charge + 0.3f * Time.deltaTime);
+                }
+                else
+                {
+                    RecoverFlash();
+                    m_charge = minCharge;
+                }
+            }
+        }
 	}
 
     public void spawnPlayerOne()
