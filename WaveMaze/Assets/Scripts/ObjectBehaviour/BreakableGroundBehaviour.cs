@@ -28,9 +28,8 @@ public class BreakableGroundBehaviour : MonoBehaviour
         {
             ++_dmgCounter;
         }
-        if(_dmgCounter % 20 == 0 && _dmgCounter > 0)
+        if(_dmgCounter % 14 == 0 && _dmgCounter > 0)
         {
-            Debug.Log(_indexOfImgs);
             ++_indexOfImgs;
             if (_indexOfImgs < _groundImgs.Length)
             {
@@ -40,8 +39,10 @@ public class BreakableGroundBehaviour : MonoBehaviour
                 {
                     GameManager.Instance.KillPlayer(true, true);
                     _dmgCounter = 0;
+                    _indexOfImgs = 0;
                     _isPlayer1OnGround = false;
                     _isPlayer2OnGround = false;
+                    GroundSpriteR.sprite = _groundImgs[0];
                 }
             }
         }
