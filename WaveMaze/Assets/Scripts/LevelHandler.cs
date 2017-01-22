@@ -25,7 +25,7 @@ namespace WaveMaze{
         string m_LevelName;
 		public readonly int m_LevelNumber = 1;
 
-        public LevelData m_LevelData;
+        //public LevelData m_LevelData;
 
         string LevelString
         {
@@ -53,7 +53,7 @@ namespace WaveMaze{
 
 		public LevelHandler(int LevelNumber){
 			m_LevelNumber = LevelNumber;
-            m_LevelData = GameManager.Instance.GetGameData.m_LevelDataList.FirstOrDefault(x => x.m_LevelNumber == LevelNumber);
+           // m_LevelData = GameManager.Instance.GetGameData.m_LevelDataList.FirstOrDefault(x => x.m_LevelNumber == LevelNumber);
             load();
 		}
 
@@ -62,6 +62,7 @@ namespace WaveMaze{
 			LoadLevelGround();
 			LoadLevelCollider();
 			return;
+            /*
             if (m_LevelData.HasEntry) {
                 LoadEntryGround();
                 LoadEntryCollider();
@@ -71,6 +72,7 @@ namespace WaveMaze{
                 LoadEndGround();
                 LoadEndCollider();
             }
+            */
         }
 		
 		// Update is called once per frame
