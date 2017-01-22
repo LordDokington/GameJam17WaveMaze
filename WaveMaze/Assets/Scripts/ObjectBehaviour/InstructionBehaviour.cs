@@ -146,6 +146,7 @@ public class InstructionBehaviour : MonoBehaviour
             GameObject.Find("Description").GetComponent<DescriptionBehaviour>().SetLightStatus(true);
             ShowOther();
             gameObject.SetActive(false);
+
         }
         else
         {
@@ -159,13 +160,15 @@ public class InstructionBehaviour : MonoBehaviour
         {
             _story = GameManager.Instance.GetGameData.m_OutroTextList;
             Background.sprite = Resources.Load<Sprite>("Sprites/outro_bg");
+            _endGameAfterText = true;
         }
         else
         {
             _story = GameManager.Instance.GetGameData.m_IntroTextList; 
             Background.sprite = Resources.Load<Sprite>("Sprites/intro_bg");
+            _endGameAfterText = false;
         }
-
+        TextStoryLine.text = "";
         Audiosrc.Play();
         _currentState = InstructionState.Idle;
         _timeBetweenTextCurrent = _timeBetweenTextMax;
