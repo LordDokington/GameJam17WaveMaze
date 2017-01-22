@@ -147,6 +147,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             _player1.SetActive(true);
             _player2.SetActive(true);
             _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+            Debug.Log(_spawnPoints[_levelNumber - 1].transform.parent.name);
             _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
             _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
                 _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 1f);
