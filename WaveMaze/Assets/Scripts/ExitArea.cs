@@ -115,8 +115,9 @@ public class ExitArea : MonoBehaviour {
             if (FleetMoveFinisched)
             {
                 FleetMoveFinisched = false;
-                TriggeredPlayer.GetComponent<PlayerController>().enabled = false;
-                CollectedPlayer.GetComponent<PlayerController>().enabled = false;
+                TriggeredPlayer.GetComponent<PlayerController>().enabled = true;
+                CollectedPlayer.GetComponent<PlayerController>().enabled = true;
+                CollectedPlayer.GetComponent<CircleCollider2D>().enabled = true;
             }
         }
     }

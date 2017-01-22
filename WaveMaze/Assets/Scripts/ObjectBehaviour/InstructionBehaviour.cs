@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class InstructionBehaviour : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class InstructionBehaviour : MonoBehaviour
     public AudioSource Audiosrc;
     private List<string> _story = new List<string>();
     private InstructionState _currentState;
+    private bool _endGameAfterText;
     private float _timeBetweenTextMax = 1f;
     private float _timeBetweenTextCurrent;
     private float _fadingTimeMax = 1f;
@@ -136,9 +138,16 @@ public class InstructionBehaviour : MonoBehaviour
     private void endInstructions()
     {
         Audiosrc.Stop();
-        GameManager.Instance.StartBGM();
-        ShowOther();
-        gameObject.SetActive(false);
+        if (!_endGameAfterText)
+        {
+            GameManager.Instance.StartBGM();
+            ShowOther();
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            SceneManager.LoadScene("Credits"); 
+        }
     }
 
     public void Init(bool IsOutro)
