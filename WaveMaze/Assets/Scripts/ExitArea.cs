@@ -110,11 +110,15 @@ public class ExitArea : MonoBehaviour {
 
             if (FleetMoveStart)
             {
+                CollectedMoveStart = true;
+                CollectedMoveFinisched = false;
                 TriggeredPlayer.transform.position += (atarget - TriggeredPlayer.transform.position).normalized * FleetSpeed * Time.deltaTime;
             }
 
             if (FleetMoveFinisched)
             {
+                CollectedMoveStart = false;
+                CollectedMoveFinisched = false;
                 FleetMoveStart = false;
                 FleetMoveFinisched = false;
                 TriggeredPlayer.GetComponent<PlayerController>().Can_Input = true;
