@@ -110,14 +110,17 @@ public class ExitArea : MonoBehaviour {
 
             if (FleetMoveStart)
             {
+                CollectedMoveStart = true;
+                CollectedMoveFinisched = false;
                 TriggeredPlayer.transform.position += (atarget - TriggeredPlayer.transform.position).normalized * FleetSpeed * Time.deltaTime;
             }
 
             if (FleetMoveFinisched)
             {
+                CollectedMoveStart = false;
+                CollectedMoveFinisched = false;
                 FleetMoveStart = false;
                 FleetMoveFinisched = false;
-                GameManager.Instance.IncreaseLevelNumber();
                 TriggeredPlayer.GetComponent<PlayerController>().Can_Input = true;
                 CollectedPlayer.GetComponent<PlayerController>().Can_Input = true;
                 CollectedPlayer.GetComponent<CircleCollider2D>().enabled = true;
@@ -128,6 +131,10 @@ public class ExitArea : MonoBehaviour {
     //void Test(Collision collision)
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        bool AllPlayerAllive = !GameManager.Instance.ShouldSpawnPlayer();
+        if (!AllPlayerAllive){
+            GameManager.Instance.SpawrnOnePlayer();
+        }
         string aName = collision.gameObject.name;
         Debug.Log(aName + "triggered ExitArea ");
         if ( aName.Equals("Player1") || aName.Equals("Player2") )
@@ -135,6 +142,7 @@ public class ExitArea : MonoBehaviour {
             TriggeredPlayer = GameObject.Find(aName);
             this.GetComponent<BoxCollider2D>().enabled = false;
             CollectPlayer();
+            GameManager.Instance.IncreaseLevelNumber();
         }
     }
 

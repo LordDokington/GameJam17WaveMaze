@@ -146,24 +146,60 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             _player1.SetActive(true);
             _player2.SetActive(true);
-            _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
-            Debug.Log(_spawnPoints[_levelNumber - 1].transform.parent.name);
-            _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
-            _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
-                _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 1f);
-            _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
-                _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 1f);
+            if (_levelNumber - 1 <= _spawnPoints.Length)
+            {
+                _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+                Debug.Log(_spawnPoints[_levelNumber - 1].transform.parent.name);
+                _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+                _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
+                    _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 1f);
+                _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                    _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 1f);
+            }
         }
+    }
+
+    public bool ShouldSpawnPlayer() {
+        return !_player1.activeSelf || !_player2.activeSelf;
+    }
+
+    public bool SpawrnOnePlayer() {
+        bool aReturn = false;
+        if (!_player1.activeSelf )
+        {
+            aReturn = aReturn || true;
+            _player1.SetActive(true);
+            
+            if (_levelNumber - 1 <= _spawnPoints.Length)
+            {
+                _player1.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+                _player1.GetComponent<SpriteRenderer>().color = new Color(_player1.GetComponent<SpriteRenderer>().color.r,
+                _player1.GetComponent<SpriteRenderer>().color.g, _player1.GetComponent<SpriteRenderer>().color.b, 1f);
+            }
+        }
+        if (!_player2.activeSelf)
+        {
+            aReturn = aReturn || true;
+            _player2.SetActive(true);
+            if (_levelNumber - 1 <= _spawnPoints.Length)
+            {
+                _player2.transform.position = _spawnPoints[_levelNumber - 1].transform.position;
+                _player2.GetComponent<SpriteRenderer>().color = new Color(_player2.GetComponent<SpriteRenderer>().color.r,
+                    _player2.GetComponent<SpriteRenderer>().color.g, _player2.GetComponent<SpriteRenderer>().color.b, 1f);
+            }
+        }
+
+        return aReturn;
     }
 
     public void IncreaseLevelNumber()
     {
         ++_levelNumber;
+        Debug.Log(_levelNumber);
     }
 
-    public void SearchSpawnPoints()
+    public void SetSpawnPoints(GameObject[] spawnPoints)
     {
-        _spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
-        Debug.Log(_spawnPoints.Length);
+        _spawnPoints = spawnPoints;
     }
 }
