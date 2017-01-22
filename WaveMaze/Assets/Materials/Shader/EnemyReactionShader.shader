@@ -62,14 +62,14 @@
 				
 				float aspect = 16.0 / 9.0;
 				// relative center of object (with quad with uv textures going from 0 to 1 this is the center)
-				float2 center = float2(position.x, position.y);
+				float2 center = float2(position.x - (1 - aspect) / 2, position.y);
 				
-				float2 dist = uv - center;
-				dist.x *= aspect;
 				// distance to center is used to check if we are on circle
-				float r = length( dist );
+				float2 transformedUV = float2( uv.x * aspect, uv.y );
+				
+				float r = length( transformedUV - center );
 
-				// relative position on "s moothed-out borders" - think of smoothed edges as a small ring area
+				// relative position on "smoothed-out borders" - think of smoothed edges as a small ring area
 				float startRelative = (r - (start - offset)) / (2 * offset);
 				float endRelative = ((end + offset) - r) / (2 * offset);
 				// use smoothstep to smooth edges
@@ -93,7 +93,10 @@
 
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
-				col = lerp(col, fixed4(0, 0, 0, 1), t * (1-_Radius) );
+				
+				float att = max(0, (2.5 -_Radius * 10));
+				
+				col = lerp(col, fixed4(0, 0, 0, 1), t * att );
 
 				return col;
 			}

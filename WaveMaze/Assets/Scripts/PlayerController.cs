@@ -102,6 +102,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//GameObject cam = GameObject.FindGameObjectWithTag ("MainCamera");
+		//cam.GetComponent<EnemyLightReaction>().EnemyPosition1 = transform.position;
+
         float playerDist = (otherPlayer.transform.position - transform.position).magnitude;
 
         // fusion takes place

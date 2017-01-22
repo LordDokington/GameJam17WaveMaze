@@ -17,6 +17,8 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
     private float timeToToWalk = 1f;
     private float walkingTimeLeft;
 
+	private EnemyLightReaction enemyLight;
+
     // Use this for initialization
     void Start()
     {
@@ -29,6 +31,8 @@ public class EnemiePatrolingBehaviour : MonoBehaviour
             darknessScript.EnemyGlowPosition = transform.position;
             //TODO: light circle
         }
+
+		enemyLight = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<EnemyLightReaction> ();
     }
 
     private void gotoNextPoint()
