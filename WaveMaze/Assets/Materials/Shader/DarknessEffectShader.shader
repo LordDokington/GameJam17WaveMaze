@@ -18,6 +18,9 @@
 		_Radius2 ("Radius2", Range(0, 1)) = 0.2
 		_Penumbra2 ("Penumbra2", Range(0, 1)) = 0.3
 		
+		_StaticHighlight1 (" Static Highlight 1", Vector) = (1.0, 1.0, 0, -1)
+		_StaticHighlight2 (" Static Highlight 2", Vector) = (1.0, 1.0, 0, -1)
+		
 		_EnemyPos1 ("EnemyPos1", Vector) = (0.5, 0.5, 0, 0)
 		_EnemyRadius ("EnemyRadius", Range(0, 1)) = 0.0
 	}
@@ -68,6 +71,9 @@
 			
 			half _EnemyRadius;
 			
+			float4 _StaticHighlight1;
+			float4 _StaticHighlight2;
+			
 			sampler2D _MainTex;
 			sampler2D _LightMapTex;
 
@@ -101,8 +107,22 @@
 			
 				float tEnemy = ( _EnemyRadius == 0.0 ) ? 1.0 : LightRing( _EnemyRadius, 0.1, _EnemyPos1, i.uv );
 				
+				float tStatic1 = 1;
+				if (_StaticHighlight1.w != -1)
+				{
+					float2 staticPos1 = float2(_StaticHighlight1.x, _StaticHighlight1.y);
+					tStatic1 = LightRing( _StaticHighlight1.z, 0.2, staticPos1, i.uv );
+				}
+				
+				float tStatic2 = 1;
+				if (_StaticHighlight2.w != -1)
+				{
+					float2 staticPos2 = float2(_StaticHighlight2.x, _StaticHighlight2.y);
+					tStatic2 = LightRing( _StaticHighlight2.z, 0.2, staticPos2, i.uv );
+				}
+				
 				//float t = 1 - (1- tPlayer1) * (1- tPlayer2);
-				float t =  tPlayer1 * tPlayer2  * tEnemy;
+				float t =  tPlayer1 * tPlayer2  * tEnemy * tStatic1 * tStatic2;
 				
 				fixed4 col = tex2D(_MainTex, i.uv);
 				//if( r > 0.05f && col.g < 0.4 ) //return float4(1, 0, 0, 1);
