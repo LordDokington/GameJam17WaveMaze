@@ -15,13 +15,14 @@ public class FinishGameBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //if(Input.GetButtonDown(KeyCode.P))
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
+            Debug.Log("Trigger");
             GameManager.Instance.StartOutro();
         }
     }
