@@ -5,14 +5,12 @@ using WaveMaze;
 public class PlayerController : MonoBehaviour
 {
 	public Material material;
-
-	//LevelData CurrentLevelData;
+	public int playerIndex = 1;
 
 	public float Influence { get { return m_influence; } }
 	public float Penumbra { get { return m_penumbra; } }
 
 	public float speed = 15f;
-    public bool IsPlayerOne = true;
 
 	float m_penumbra;
 	float m_brightnessCycleTime = 4;
@@ -37,8 +35,8 @@ public class PlayerController : MonoBehaviour
 	{
 		m_penumbra = defaultPenumbra;
 		m_charge = minCharge;
-		material.SetFloat ("_Radius", 0);
-		material.SetFloat ("_Penumbra", defaultPenumbra);	
+		material.SetFloat ("_Radius" + playerIndex.ToString(), 0);
+		material.SetFloat ("_Penumbra" + playerIndex.ToString(), defaultPenumbra);	
 
 		spawnPlayerOne();
 	}
@@ -55,28 +53,27 @@ public class PlayerController : MonoBehaviour
 	void Update () 
 	{
 		Vector2 playerPos = NormalizedPos();
-		material.SetVector( "_PlayerPos", new Vector4(playerPos.x, playerPos.y, 0, 0) );
+		material.SetVector( "_PlayerPos" + playerIndex.ToString(), new Vector4(playerPos.x, playerPos.y, 0, 0) );
 
-        if (IsPlayerOne)
+		float x, y;
+		if (playerIndex == 1)
         {
-            float x = Input.GetAxis("HorizontalP1") * speed * Time.deltaTime;
-            float y = Input.GetAxis("VerticalP1") * speed * Time.deltaTime;
-
-            transform.Translate(new Vector3(x, y, 0));
+            x = Input.GetAxis("HorizontalP1") * speed * Time.deltaTime;
+            y = Input.GetAxis("VerticalP1") * speed * Time.deltaTime;
         }
         else
         {
-            float x = Input.GetAxis("HorizontalP2") * speed * Time.deltaTime;
-            float y = Input.GetAxis("VerticalP2") * speed * Time.deltaTime;
-
-            transform.Translate( new Vector3(x, y, 0) );
+            x = Input.GetAxis("HorizontalP2") * speed * Time.deltaTime;
+            y = Input.GetAxis("VerticalP2") * speed * Time.deltaTime;
         }
 
-		if (Input.GetKeyUp (KeyCode.Space)) {
+		transform.Translate( new Vector3(x, y, 0) );
+
+		if (Input.GetKeyUp (playerIndex == 1 ? KeyCode.Space : KeyCode.Return)) {
 			ReleaseFlash (m_charge);
 		}
 
-		if (m_brightnessCycleTime <= Mathf.PI) 
+		if (m_brightnessCycleTime <= Mathf.PI)
 		{
 			if (m_brightnessCycleTime >= Mathf.PI / 2)
 			{
@@ -87,11 +84,12 @@ public class PlayerController : MonoBehaviour
 				m_brightnessCycleTime += Time.deltaTime * expandSpeed;
 			}
 			m_influence = Mathf.Sin (m_brightnessCycleTime) * m_chargeDecelerator;
-			material.SetFloat ("_Radius", m_influence);
+			material.SetFloat ("_Radius" + playerIndex.ToString(), m_influence);
 		} 
 		else //if(m_brightnessCycleTime > Mathf.PI)
 		{
-			if (Input.GetKey (KeyCode.Space))
+			
+			if (Input.GetKey (playerIndex == 1 ? KeyCode.Space : KeyCode.Return))
 			{
 				ChargeFlash ();	
 				m_charge += 0.3f * Time.deltaTime;
@@ -117,22 +115,22 @@ public class PlayerController : MonoBehaviour
 	{
 		float penumbraDecrease = 1.0f;
 		m_penumbra = Mathf.Lerp (m_penumbra, minPenumbra, penumbraDecrease * Time.deltaTime);
-		material.SetFloat ("_Penumbra", m_penumbra);
+		material.SetFloat ("_Penumbra" + playerIndex.ToString(), m_penumbra);
 
 		float shakeAmount = ( m_penumbra / (defaultPenumbra - minPenumbra) ) * shakeStrength;
-		material.SetFloat ( "_ShakeX", Utils.RandRange(-shakeAmount, shakeAmount) );
+		material.SetFloat ( "_ShakeX" + playerIndex.ToString(), Utils.RandRange(-shakeAmount, shakeAmount) );
 	}
 
 	public void RecoverFlash()
 	{
 		float penumbraIncrease = 0.4f;
 		m_penumbra = Mathf.Lerp (m_penumbra, defaultPenumbra, penumbraIncrease * Time.deltaTime);
-		material.SetFloat ("_Penumbra", m_penumbra);
+		material.SetFloat ("_Penumbra" + playerIndex.ToString(), m_penumbra);
 	}
 
 	public void ReleaseFlash(float charge)
 	{
-		material.SetFloat ( "_ShakeX", 0f );
+		material.SetFloat ( "_ShakeX" + playerIndex.ToString(), 0f );
 		m_chargeDecelerator = charge;
 		if( m_brightnessCycleTime > Mathf.PI ) m_brightnessCycleTime = 0f;
 	}
